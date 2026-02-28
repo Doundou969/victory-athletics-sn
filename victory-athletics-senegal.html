@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Victory Athletics — Dakar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --green: #00853F;
+      --yellow: #FDEF42;
+      --red: #E31B23;
+      --gold: #C9A84C;
+      --dark: #0A0A0A;
+      --dark2: #111111;
+      --dark3: #1A1A1A;
+      --cream: #F5F0E8;
+      --white: #FFFFFF;
+      --text-muted: #888;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      cursor: none;
+      overflow-x: hidden;
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--yellow);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.3s, height 0.3s, background 0.3s;
+      mix-blend-mode: difference;
+    }
+    .cursor-follower {
+      position: fixed;
+      width: 40px; height: 40px;
+      border: 1.5px solid rgba(201,168,76,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, width 0.3s, height 0.3s;
+    }
+    .cursor.hovered { width: 6px; height: 6px; }
+    .cursor-follower.hovered { width: 60px; height: 60px; border-color: var(--gold); }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--yellow); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .nav-cart {
+      position: relative;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      padding: 0.6rem 1.4rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .nav-cart:hover { background: var(--yellow); transform: translateY(-1px); }
+    .cart-count {
+      position: absolute;
+      top: -8px; right: -8px;
+      background: var(--red);
+      color: white;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      font-size: 0.65rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 3rem 5rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(0,133,63,0.15) 0%, transparent 50%),
+        linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.3) 60%, rgba(10,10,10,0.1) 100%),
+        url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1600&q=80') center/cover no-repeat;
+    }
+
+    /* Sénégalais wax pattern overlay */
+    .hero-pattern {
+      position: absolute;
+      top: 0; right: 0;
+      width: 45%;
+      height: 100%;
+      background:
+        linear-gradient(to left, rgba(10,10,10,0.6), transparent),
+        repeating-linear-gradient(45deg, rgba(201,168,76,0.03) 0, rgba(201,168,76,0.03) 2px, transparent 2px, transparent 20px),
+        repeating-linear-gradient(-45deg, rgba(0,133,63,0.03) 0, rgba(0,133,63,0.03) 2px, transparent 2px, transparent 20px);
+    }
+
+    .hero-flag-strip {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, var(--green) 33.33%, var(--yellow) 33.33% 66.66%, var(--red) 66.66%);
+    }
+
+    .hero-content {
+      position: relative;
+      max-width: 700px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 10vw, 9rem);
+      line-height: 0.9;
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title .accent { color: var(--yellow); }
+    .hero-title .outline {
+      -webkit-text-stroke: 2px rgba(255,255,255,0.3);
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 2.5rem;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 1rem 2.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: all 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--yellow);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: -1;
+    }
+    .btn-primary:hover { color: var(--dark); }
+    .btn-primary:hover::after { transform: translateX(0); }
+
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 1rem 2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+    .hero-stats {
+      position: absolute;
+      right: 3rem;
+      bottom: 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      text-align: right;
+    }
+    .stat-item {}
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* TICKER */
+    .ticker {
+      background: var(--green);
+      padding: 0.7rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-flex;
+      animation: ticker 25s linear infinite;
+    }
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      padding: 0 2rem;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .ticker-dot { width: 4px; height: 4px; background: var(--yellow); border-radius: 50%; }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* SECTION GÉNÉRIQUE */
+    section { padding: 6rem 3rem; }
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    /* COLLECTIONS */
+    .collections {
+      background: var(--dark2);
+    }
+    .collections-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+    .view-all {
+      color: var(--gold);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      transition: opacity 0.3s;
+    }
+    .view-all:hover { opacity: 0.7; }
+
+    .collections-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .collection-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--dark3);
+      cursor: none;
+    }
+    .collection-card:first-child {
+      grid-row: 1 / 3;
+    }
+    .collection-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s ease;
+      min-height: 300px;
+    }
+    .collection-card:first-child img { min-height: 600px; }
+    .collection-card:hover img { transform: scale(1.05); }
+
+    .collection-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      transition: background 0.3s;
+    }
+    .collection-card:hover .collection-overlay {
+      background: linear-gradient(to top, rgba(0,133,63,0.7) 0%, transparent 70%);
+    }
+
+    .collection-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-bottom: 0.5rem;
+    }
+    .collection-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .collection-card:first-child .collection-name { font-size: 2.8rem; }
+    .collection-count {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* PRODUITS TENDANCE */
+    .trending { background: var(--dark); }
+    .products-scroll {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scrollbar-width: none;
+    }
+    .products-scroll::-webkit-scrollbar { display: none; }
+
+    .product-card {
+      flex: 0 0 280px;
+      background: var(--dark3);
+      position: relative;
+      cursor: none;
+      group: true;
+    }
+    .product-img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+    }
+    .product-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .product-card:hover .product-img-wrap img { transform: scale(1.06); }
+
+    .product-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--red);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+    }
+    .product-badge.new { background: var(--green); }
+    .product-badge.sale { background: var(--red); }
+
+    .product-quick-add {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      padding: 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: none;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+    }
+    .product-card:hover .product-quick-add { transform: translateY(0); }
+
+    .product-info {
+      padding: 1rem 1rem 1.2rem;
+    }
+    .product-brand {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.3rem;
+    }
+    .product-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: rgba(255,255,255,0.9);
+    }
+    .product-price {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .price-current {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      color: var(--white);
+      letter-spacing: 0.05em;
+    }
+    .price-old {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    /* BANNER SÉNÉGAL */
+    .senegal-banner {
+      position: relative;
+      background: var(--green);
+      padding: 5rem 3rem;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .senegal-banner::before {
+      content: 'SÉNÉGAL';
+      position: absolute;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 15rem;
+      color: rgba(0,0,0,0.1);
+      right: -2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .banner-text {}
+    .banner-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .banner-title .yellow { color: var(--yellow); }
+    .banner-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 400px;
+      line-height: 1.6;
+    }
+    .banner-cta {
+      background: var(--yellow);
+      color: var(--dark);
+      border: none;
+      padding: 1.2rem 3rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: all 0.3s;
+      text-decoration: none;
+      z-index: 1;
+    }
+    .banner-cta:hover { background: var(--white); transform: scale(1.03); }
+
+    /* FEATURED PRODUITS */
+    .featured { background: var(--dark2); }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    /* SECTION LOOK BOOK */
+    .lookbook {
+      background: var(--dark);
+      padding: 6rem 0;
+    }
+    .lookbook-header {
+      padding: 0 3rem;
+      margin-bottom: 3rem;
+    }
+    .lookbook-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr 1fr;
+      gap: 2px;
+      height: 70vh;
+    }
+    .look-item {
+      position: relative;
+      overflow: hidden;
+      cursor: none;
+    }
+    .look-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s;
+      filter: brightness(0.85);
+    }
+    .look-item:hover img { transform: scale(1.04); filter: brightness(1); }
+    .look-item:nth-child(2) { display: grid; grid-template-rows: 1fr 1fr; gap: 2px; }
+    .look-item:nth-child(2) div { position: relative; overflow: hidden; cursor: none; }
+    .look-item:nth-child(2) div img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.7s; }
+    .look-item:nth-child(2) div:hover img { transform: scale(1.04); }
+    .look-overlay {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+    }
+    .look-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: white;
+    }
+    .look-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    /* NEWSLETTER */
+    .newsletter {
+      background: var(--dark3);
+      text-align: center;
+      padding: 6rem 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(0,133,63,0.08) 0%, transparent 70%);
+    }
+    .newsletter-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: 0.5rem;
+    }
+    .newsletter-sub {
+      color: var(--text-muted);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      margin-bottom: 2.5rem;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 0;
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .newsletter-input {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-right: none;
+      color: white;
+      padding: 1rem 1.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .newsletter-input::placeholder { color: var(--text-muted); }
+    .newsletter-input:focus { border-color: var(--gold); }
+    .newsletter-btn {
+      background: var(--gold);
+      color: var(--dark);
+      border: 1px solid var(--gold);
+      padding: 1rem 2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: all 0.3s;
+    }
+    .newsletter-btn:hover { background: var(--yellow); border-color: var(--yellow); }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark2);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 4rem 3rem 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand {}
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-desc {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 1rem;
+    }
+    .social-link {
+      width: 38px; height: 38px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+    }
+    .social-link:hover { border-color: var(--gold); color: var(--gold); }
+
+    .footer-col h4 {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* PANIER DRAWER */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1998;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      backdrop-filter: blur(4px);
+    }
+    .cart-overlay.open { opacity: 1; pointer-events: all; }
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 420px;
+      background: var(--dark2);
+      z-index: 1999;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid rgba(255,255,255,0.06);
+    }
+    .cart-drawer.open { transform: translateX(0); }
+    .cart-header {
+      padding: 2rem;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+    }
+    .cart-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: none;
+      font-size: 1.5rem;
+      transition: color 0.3s;
+    }
+    .cart-close:hover { color: white; }
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .cart-item {
+      display: flex;
+      gap: 1rem;
+    }
+    .cart-item-img {
+      width: 80px; height: 100px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .cart-item-info { flex: 1; }
+    .cart-item-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+    .cart-item-variant {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.7rem;
+    }
+    .cart-item-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+    }
+    .cart-item-remove {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+      align-self: flex-start;
+    }
+    .cart-item-remove:hover { color: var(--red); }
+    .cart-footer {
+      padding: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+    .cart-total-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .cart-total-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      color: var(--gold);
+    }
+    .btn-checkout {
+      width: 100%;
+      background: var(--green);
+      color: white;
+      border: none;
+      padding: 1.1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: background 0.3s;
+    }
+    .btn-checkout:hover { background: var(--gold); color: var(--dark); }
+    .cart-empty {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+    }
+    .cart-empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+    /* NOTIFICATION TOAST */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--green);
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      z-index: 3000;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast::before { content: '✓'; font-weight: 700; }
+
+    /* ANIMATIONS */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 0 1.5rem 4rem; }
+      .hero-stats { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .collections-grid { grid-template-columns: 1fr 1fr; }
+      .collection-card:first-child { grid-row: auto; grid-column: 1 / -1; }
+      .featured-grid { grid-template-columns: repeat(2, 1fr); }
+      .lookbook-grid { grid-template-columns: 1fr 1fr; height: auto; }
+      .look-item:nth-child(2) { grid-template-rows: auto; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .senegal-banner { flex-direction: column; gap: 2rem; text-align: center; }
+      .senegal-banner::before { font-size: 8rem; }
+      .cart-drawer { width: 100%; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-title { font-size: 4rem; }
+      .hero-ctas { flex-direction: column; align-items: flex-start; }
+      .collections-grid { grid-template-columns: 1fr; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-input { border-right: 1px solid rgba(255,255,255,0.1); border-bottom: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .lookbook-grid { grid-template-columns: 1fr; height: auto; }
+    }
+
+    /* SCROLL INDICATOR */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.5;
+    }
+    .scroll-indicator span {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, white, transparent);
+      animation: scrollLine 1.5s ease infinite;
+    }
+    @keyframes scrollLine {
+      0% { transform: scaleY(0); transform-origin: top; }
+      50% { transform: scaleY(1); transform-origin: top; }
+      51% { transform: scaleY(1); transform-origin: bottom; }
+      100% { transform: scaleY(0); transform-origin: bottom; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">Produit ajouté au panier</div>
+
+  <!-- CART -->
+  <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <span class="cart-title">Mon Panier</span>
+      <button class="cart-close" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">
+        <div class="cart-empty-icon">🛒</div>
+        <p>Votre panier est vide</p>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-value" id="cartTotal">0 FCFA</span>
+      </div>
+      <button class="btn-checkout" onclick="showToast('Paiement sécurisé — Bientôt disponible !')">Commander Maintenant</button>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="#" class="nav-logo">VICTORY<span>.</span>SN</a>
+    <ul class="nav-links">
+      <li><a href="#collections">Collections</a></li>
+      <li><a href="#trending">Tendances</a></li>
+      <li><a href="#lookbook">Lookbook</a></li>
+      <li><a href="#member">Membres</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-cart" onclick="openCart()">
+        Panier
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-pattern"></div>
+    <div class="hero-flag-strip"></div>
+
+    <div class="hero-content">
+      <div class="hero-tag">Dakar · Collection 2025</div>
+      <h1 class="hero-title">
+        FORGE<br>
+        <span class="accent">TON</span><br>
+        <span class="outline">DESTIN</span>
+      </h1>
+      <p class="hero-sub">
+        La performance rencontre l'héritage africain. Des vêtements de sport conçus pour les champions d'ici.
+      </p>
+      <div class="hero-ctas">
+        <a href="#collections" class="btn-primary">Explorer la Collection</a>
+        <a href="#lookbook" class="btn-ghost">Voir le Lookbook</a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">14</div>
+        <div class="stat-label">Collections</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2K+</div>
+        <div class="stat-label">Athlètes</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">SN</div>
+        <div class="stat-label">Made in Dakar</div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Défiler</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner" id="tickerInner"></div>
+  </div>
+
+  <!-- COLLECTIONS -->
+  <section class="collections" id="collections">
+    <div class="collections-header fade-in">
+      <div>
+        <div class="section-label">Nos Univers</div>
+        <h2 class="section-title">COLLECTIONS<br>SIGNATURE</h2>
+      </div>
+      <a href="#" class="view-all">Tout voir →</a>
+    </div>
+    <div class="collections-grid fade-in">
+      <div class="collection-card" onclick="addToCart('Collection Teranga', 45000)">
+        <img src="https://images.unsplash.com/photo-1576243345690-4e4b79b63288?w=800&q=80" alt="Teranga Collection"/>
+        <div class="collection-overlay">
+          <div class="collection-tag">Édition Limitée</div>
+          <div class="collection-name">Teranga Elite</div>
+          <div class="collection-count">32 produits · Dès 25 000 FCFA</div>
+        </div>
+      </div>
+      <div class="collection-card" onclick="addToCart('Dakar Run', 35000)">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80" alt="Dakar Run"/>
+        <div class="collection-overlay">
+          <div class="collection-tag">Running</div>
+          <div class="collection-name">Dakar Run</div>
+          <div class="collection-count">18 produits · Dès 18 000 FCFA</div>
+        </div>
+      </div>
+      <div class="collection-card" onclick="addToCart('Sahel Training', 28000)">
+        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80" alt="Sahel Training"/>
+        <div class="collection-overlay">
+          <div class="collection-tag">Training</div>
+          <div class="collection-name">Sahel Pro</div>
+          <div class="collection-count">24 produits · Dès 15 000 FCFA</div>
+        </div>
+      </div>
+      <div class="collection-card" onclick="addToCart('Lion Collection', 55000)">
+        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80" alt="Lion Collection"/>
+        <div class="collection-overlay">
+          <div class="collection-tag">Premium</div>
+          <div class="collection-name">Lions du Sénégal</div>
+          <div class="collection-count">12 produits · Dès 35 000 FCFA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRENDING -->
+  <section class="trending" id="trending">
+    <div class="collections-header fade-in">
+      <div>
+        <div class="section-label">Le Plus Porté</div>
+        <h2 class="section-title">TENDANCES<br>DU MOMENT</h2>
+      </div>
+      <a href="#" class="view-all">Voir tout →</a>
+    </div>
+    <div class="products-scroll fade-in" id="productsScroll"></div>
+  </section>
+
+  <!-- SENEGAL BANNER -->
+  <div class="senegal-banner">
+    <div class="banner-text">
+      <h2 class="banner-title">FIÈREMENT<br><span class="yellow">SÉNÉGALAIS</span></h2>
+      <p class="banner-sub">Chaque couture raconte notre histoire. Chaque fibre incarne notre force. Made in Dakar, porté partout dans le monde.</p>
+    </div>
+    <a href="#" class="banner-cta">Découvrir Notre Histoire</a>
+  </div>
+
+  <!-- FEATURED -->
+  <section class="featured" id="featured">
+    <div class="fade-in">
+      <div class="section-label">Sélection Premium</div>
+      <h2 class="section-title">COUPS DE CŒUR</h2>
+    </div>
+    <div class="featured-grid fade-in" id="featuredGrid"></div>
+  </section>
+
+  <!-- LOOKBOOK -->
+  <div class="lookbook" id="lookbook">
+    <div class="lookbook-header fade-in">
+      <div class="section-label">Éditorial</div>
+      <h2 class="section-title">LOOKBOOK<br>SAISON 2025</h2>
+    </div>
+    <div class="lookbook-grid">
+      <div class="look-item">
+        <img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=800&q=80" alt="Look 1"/>
+        <div class="look-overlay">
+          <div class="look-name">Le Guerrier Moderne</div>
+          <div class="look-price">45 000 FCFA</div>
+        </div>
+      </div>
+      <div class="look-item">
+        <div>
+          <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=80" alt="Look 2"/>
+          <div class="look-overlay">
+            <div class="look-name">Force & Élégance</div>
+            <div class="look-price">32 000 FCFA</div>
+          </div>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&q=80" alt="Look 3"/>
+          <div class="look-overlay">
+            <div class="look-name">Dakar Nights</div>
+            <div class="look-price">28 000 FCFA</div>
+          </div>
+        </div>
+      </div>
+      <div class="look-item">
+        <img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&q=80" alt="Look 4"/>
+        <div class="look-overlay">
+          <div class="look-name">Champion des Champions</div>
+          <div class="look-price">55 000 FCFA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <div class="newsletter">
+    <div class="section-label fade-in">Restez Connecté</div>
+    <h2 class="newsletter-title fade-in">REJOIGNEZ LA<br><span style="color:var(--gold)">FAMILLE VICTORY</span></h2>
+    <p class="newsletter-sub fade-in">Accès exclusif aux nouvelles collections, offres membres et événements Dakar.</p>
+    <form class="newsletter-form fade-in" onsubmit="handleNewsletter(event)">
+      <input type="email" class="newsletter-input" placeholder="votre@email.com" required/>
+      <button type="submit" class="newsletter-btn">S'inscrire</button>
+    </form>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="footer-logo">VICTORY<span>.</span>SN</span>
+        <p class="footer-desc">La première marque de vêtements de sport premium du Sénégal. Conçue à Dakar, pour les athlètes du monde entier.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-link">ig</a>
+          <a href="#" class="social-link">tw</a>
+          <a href="#" class="social-link">fb</a>
+          <a href="#" class="social-link">yt</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Collections</h4>
+        <ul class="footer-links">
+          <li><a href="#">Teranga Elite</a></li>
+          <li><a href="#">Dakar Run</a></li>
+          <li><a href="#">Sahel Pro</a></li>
+          <li><a href="#">Lions du Sénégal</a></li>
+          <li><a href="#">Nouveautés</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Service Client</h4>
+        <ul class="footer-links">
+          <li><a href="#">Mon Compte</a></li>
+          <li><a href="#">Mes Commandes</a></li>
+          <li><a href="#">Livraison & Retours</a></li>
+          <li><a href="#">Guide des Tailles</a></li>
+          <li><a href="#">Contactez-nous</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Victory Athletics</h4>
+        <ul class="footer-links">
+          <li><a href="#">Notre Histoire</a></li>
+          <li><a href="#">Programme Membres</a></li>
+          <li><a href="#">Partenariats</a></li>
+          <li><a href="#">Presse</a></li>
+          <li><a href="#">Recrutement</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Victory Athletics Sénégal. Tous droits réservés.</span>
+      <span>Fait avec ❤️ à Dakar</span>
+    </div>
+  </footer>
+
+  <script>
+    // ===== CURSOR =====
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursorFollower');
+    let mouseX = 0, mouseY = 0, followerX = 0, followerY = 0;
+
+    document.addEventListener('mousemove', e => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      cursor.style.left = mouseX + 'px';
+      cursor.style.top = mouseY + 'px';
+    });
+
+    function animateFollower() {
+      followerX += (mouseX - followerX) * 0.1;
+      followerY += (mouseY - followerY) * 0.1;
+      follower.style.left = followerX + 'px';
+      follower.style.top = followerY + 'px';
+      requestAnimationFrame(animateFollower);
+    }
+    animateFollower();
+
+    document.querySelectorAll('a, button, .product-card, .collection-card, .look-item').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.classList.add('hovered');
+        follower.classList.add('hovered');
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.classList.remove('hovered');
+        follower.classList.remove('hovered');
+      });
+    });
+
+    // ===== TICKER =====
+    const tickerItems = [
+      'Livraison Gratuite à Dakar', 'Nouvelle Collection 2025', 'Retours Gratuits 30 Jours',
+      'Made in Sénégal 🇸🇳', 'Paiement Wave & Orange Money', 'Programme Fidélité',
+      'Qualité Premium', 'Athlètes Certifiés', '-20% pour les Membres'
+    ];
+    const ticker = document.getElementById('tickerInner');
+    const allItems = [...tickerItems, ...tickerItems];
+    ticker.innerHTML = allItems.map(item => `
+      <span class="ticker-item">
+        ${item}
+        <span class="ticker-dot"></span>
+      </span>
+    `).join('');
+
+    // ===== PRODUCTS DATA =====
+    const products = [
+      { id: 1, name: 'Brassière Teranga Pro', brand: 'VICTORY', price: 22000, oldPrice: 28000, badge: 'sale', img: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=80' },
+      { id: 2, name: 'Short Dakar Ultra', brand: 'VICTORY', price: 18000, badge: 'new', img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80' },
+      { id: 3, name: 'Legging Sahel Performance', brand: 'VICTORY', price: 35000, img: 'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=600&q=80' },
+      { id: 4, name: 'T-Shirt Lions Champion', brand: 'VICTORY', price: 15000, oldPrice: 20000, badge: 'sale', img: 'https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=600&q=80' },
+      { id: 5, name: 'Veste Entraînement Elite', brand: 'VICTORY', price: 48000, badge: 'new', img: 'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=600&q=80' },
+      { id: 6, name: 'Sneakers Gorée Run', brand: 'VICTORY', price: 65000, img: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80' },
+    ];
+
+    // ===== TRENDING SCROLL =====
+    const scroll = document.getElementById('productsScroll');
+    scroll.innerHTML = products.map(p => `
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="${p.img}" alt="${p.name}" loading="lazy"/>
+          ${p.badge ? `<div class="product-badge ${p.badge}">${p.badge === 'new' ? 'Nouveau' : 'Soldes'}</div>` : ''}
+          <button class="product-quick-add" onclick="addToCart('${p.name}', ${p.price})">+ Ajouter au Panier</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">${p.brand}</div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-price">
+            <span class="price-current">${p.price.toLocaleString('fr-FR')} FCFA</span>
+            ${p.oldPrice ? `<span class="price-old">${p.oldPrice.toLocaleString('fr-FR')} FCFA</span>` : ''}
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    // ===== FEATURED GRID =====
+    const featured = document.getElementById('featuredGrid');
+    const featuredProducts = products.slice(0, 4);
+    featured.innerHTML = featuredProducts.map(p => `
+      <div class="product-card">
+        <div class="product-img-wrap">
+          <img src="${p.img}" alt="${p.name}" loading="lazy"/>
+          ${p.badge ? `<div class="product-badge ${p.badge}">${p.badge === 'new' ? 'Nouveau' : 'Soldes'}</div>` : ''}
+          <button class="product-quick-add" onclick="addToCart('${p.name}', ${p.price})">+ Ajouter au Panier</button>
+        </div>
+        <div class="product-info">
+          <div class="product-brand">${p.brand}</div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-price">
+            <span class="price-current">${p.price.toLocaleString('fr-FR')} FCFA</span>
+            ${p.oldPrice ? `<span class="price-old">${p.oldPrice.toLocaleString('fr-FR')} FCFA</span>` : ''}
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    // ===== PANIER =====
+    let cart = [];
+
+    function addToCart(name, price) {
+      const existing = cart.find(i => i.name === name);
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ name, price, qty: 1, img: products.find(p => p.name === name)?.img || 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&q=80' });
+      }
+      updateCartUI();
+      showToast(`"${name}" ajouté au panier !`);
+    }
+
+    function removeFromCart(name) {
+      cart = cart.filter(i => i.name !== name);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const count = cart.reduce((s, i) => s + i.qty, 0);
+      document.getElementById('cartCount').textContent = count;
+
+      const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      document.getElementById('cartTotal').textContent = total.toLocaleString('fr-FR') + ' FCFA';
+
+      const items = document.getElementById('cartItems');
+      if (cart.length === 0) {
+        items.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛒</div><p>Votre panier est vide</p></div>';
+        return;
+      }
+      items.innerHTML = cart.map(item => `
+        <div class="cart-item">
+          <img class="cart-item-img" src="${item.img}" alt="${item.name}"/>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-variant">Qté : ${item.qty} · Taille : M</div>
+            <div class="cart-item-price">${(item.price * item.qty).toLocaleString('fr-FR')} FCFA</div>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart('${item.name}')">✕</button>
+        </div>
+      `).join('');
+    }
+
+    function openCart() {
+      document.getElementById('cartDrawer').classList.add('open');
+      document.getElementById('cartOverlay').classList.add('open');
+    }
+    function closeCart() {
+      document.getElementById('cartDrawer').classList.remove('open');
+      document.getElementById('cartOverlay').classList.remove('open');
+    }
+
+    // ===== TOAST =====
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = '✓ ' + msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ===== NEWSLETTER =====
+    function handleNewsletter(e) {
+      e.preventDefault();
+      showToast('Bienvenue dans la famille Victory !');
+      e.target.reset();
+    }
+
+    // ===== SCROLL ANIMATIONS =====
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
