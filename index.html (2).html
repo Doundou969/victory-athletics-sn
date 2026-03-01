@@ -4,334 +4,1557 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Victory Athletics — Dakar, Sénégal</title>
-<meta name="description" content="Victory Athletics - La marque de sport premium à Dakar. Équipements de performance et style urbain sénégalais.">
-
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
-/* ============================================================
-   DESIGN SYSTEM & VARIABLES
-   ============================================================ */
-:root {
-  --green: #00853F;
-  --yellow: #FDEF42;
-  --red: #E31B23;
-  --gold: #C9A84C;
-  --dark: #080808;
-  --dark2: #0f0f0f;
-  --dark3: #161616;
-  --border: rgba(255,255,255,0.07);
-  --white: #FFFFFF;
-  --muted: #666;
-  --font-display: 'Bebas Neue', sans-serif;
-  --font-serif: 'Cormorant Garamond', serif;
-  --font-body: 'DM Sans', sans-serif;
+/* ===== DESIGN SYSTEM ===== */
+:root{
+  --g:#00853F;--gl:#00a34e;--y:#FDEF42;--r:#E31B23;
+  --gold:#C9A84C;--gold2:#e2c070;
+  --d:#080808;--d2:#0f0f0f;--d3:#161616;--d4:#1e1e1e;--d5:#252525;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --muted:#666;--muted2:#444;
+  --fd:'Bebas Neue',sans-serif;
+  --fs:'Cormorant Garamond',serif;
+  --fb:'DM Sans',sans-serif;
 }
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--d);color:#fff;font-family:var(--fb);cursor:none;overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--d2);}::-webkit-scrollbar-thumb{background:var(--gold);}
 
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background: var(--dark); color: var(--white); font-family: var(--font-body); overflow-x: hidden; }
+/* ===== CURSOR ===== */
+#cur{position:fixed;width:10px;height:10px;background:var(--y);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .2s,height .2s;}
+#cur-r{position:fixed;width:34px;height:34px;border:1px solid rgba(201,168,76,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s;}
+#cur.big{width:5px;height:5px;}#cur-r.big{width:52px;height:52px;border-color:var(--gold);}
 
-/* ============================================================
-   LAYOUT & NAVIGATION
-   ============================================================ */
-header { position:fixed; top:0; width:100%; z-index:1000; padding:20px 5%; display:flex; justify-content:space-between; align-items:center; transition:0.4s; }
-header.scrolled { background: rgba(8,8,8,0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
-.logo { font-family: var(--font-display); font-size: 2rem; letter-spacing: 2px; color: var(--gold); cursor: pointer; }
-nav ul { display: flex; list-style: none; gap: 30px; }
-nav a { color: var(--white); text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; cursor: pointer; }
-nav a:hover { color: var(--gold); }
+/* ===== PAGE SPA ===== */
+.page{display:none;}.page.active{display:block;animation:pgIn .35s ease;}
+@keyframes pgIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
-.nav-icons { display: flex; gap: 20px; align-items: center; }
-.cart-trigger { position: relative; cursor: pointer; }
-.cart-count { position: absolute; top: -8px; right: -12px; background: var(--red); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; }
+/* ===== NAVBAR ===== */
+#nav{position:fixed;top:0;left:0;right:0;z-index:800;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 3rem;transition:background .4s,padding .3s;}
+#nav.s{background:rgba(8,8,8,.97);backdrop-filter:blur(20px);padding:1rem 3rem;border-bottom:1px solid var(--border);}
+.nav-logo{font-family:var(--fd);font-size:1.7rem;letter-spacing:.12em;color:#fff;cursor:none;text-decoration:none;}
+.nav-logo em{color:var(--gold);font-style:normal;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.77rem;letter-spacing:.14em;text-transform:uppercase;transition:color .25s;cursor:none;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transition:transform .25s;}
+.nav-links a:hover,.nav-links a.act{color:#fff;}
+.nav-links a:hover::after,.nav-links a.act::after{transform:scaleX(1);}
+.nav-r{display:flex;align-items:center;gap:1rem;}
+.nav-icon-btn{background:none;border:none;color:rgba(255,255,255,.5);cursor:none;font-size:1.1rem;padding:.3rem;transition:color .25s;}
+.nav-icon-btn:hover{color:#fff;}
+.nav-cart-btn{position:relative;background:none;border:1px solid var(--border);color:rgba(255,255,255,.7);padding:.5rem 1.2rem;font-family:var(--fb);font-size:.74rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:none;transition:all .25s;}
+.nav-cart-btn:hover{border-color:var(--gold);color:var(--gold);}
+.cart-bub{position:absolute;top:-7px;right:-7px;background:var(--r);color:#fff;width:17px;height:17px;border-radius:50%;font-size:.6rem;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.nav-admin-btn{background:var(--gold);color:var(--d);border:none;padding:.5rem 1.2rem;font-family:var(--fb);font-size:.74rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:none;transition:all .25s;}
+.nav-admin-btn:hover{background:var(--y);}
+.nav-hbg{display:none;background:none;border:none;color:#fff;font-size:1.4rem;cursor:none;}
 
-/* ============================================================
-   PAGES & SECTIONS
-   ============================================================ */
-.page { display: none; padding-top: 100px; min-height: 100vh; }
-.page.active { display: block; animation: fadeIn 0.6s ease; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* ===== MOBILE MENU ===== */
+#mob-menu{position:fixed;inset:0;background:rgba(8,8,8,.98);z-index:1500;display:none;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;}
+#mob-menu.open{display:flex;}
+#mob-menu a{font-family:var(--fd);font-size:3rem;letter-spacing:.1em;color:rgba(255,255,255,.7);text-decoration:none;cursor:none;transition:color .25s;}
+#mob-menu a:hover{color:var(--y);}
+.mob-close{position:absolute;top:1.5rem;right:2rem;background:none;border:none;color:#fff;font-size:2rem;cursor:none;}
 
-/* SHOP FILTERS */
-.shop-filters { display: flex; justify-content: center; gap: 15px; margin: 40px 0; flex-wrap: wrap; }
-.filter-btn { background: transparent; border: 1px solid var(--border); color: var(--white); padding: 10px 25px; cursor: pointer; font-family: var(--font-display); transition: 0.3s; }
-.filter-btn.active, .filter-btn:hover { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+/* ===== SEARCH OVERLAY ===== */
+#search-ov{position:fixed;inset:0;background:rgba(8,8,8,.97);z-index:1400;display:none;flex-direction:column;align-items:center;justify-content:center;gap:2rem;backdrop-filter:blur(12px);}
+#search-ov.open{display:flex;}
+.s-form{display:flex;align-items:center;border-bottom:2px solid var(--gold);padding-bottom:1rem;width:min(600px,90vw);}
+.s-input{flex:1;background:none;border:none;outline:none;font-family:var(--fd);font-size:3rem;color:#fff;letter-spacing:.05em;}
+.s-input::placeholder{color:var(--muted2);}
+.s-close{background:none;border:none;color:var(--muted);font-size:2rem;cursor:none;transition:color .25s;}
+.s-close:hover{color:#fff;}
+.s-hints{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;}
+.s-hint{background:var(--d3);border:1px solid var(--border);color:var(--muted);padding:.35rem .9rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;cursor:none;transition:all .25s;}
+.s-hint:hover{border-color:var(--gold);color:var(--gold);}
+.s-results{width:min(600px,90vw);max-height:280px;overflow-y:auto;}
+.s-res-item{display:flex;align-items:center;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--border);cursor:none;transition:opacity .25s;}
+.s-res-item:hover{opacity:.7;}
+.s-res-img{width:48px;height:58px;object-fit:cover;background:var(--d4);}
+.s-res-name{font-size:.88rem;font-weight:500;}
+.s-res-price{font-size:.76rem;color:var(--gold);}
 
-/* PRODUCT GRID */
-.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; padding: 0 5%; }
-.product-card { background: var(--dark2); border: 1px solid var(--border); position: relative; overflow: hidden; transition: 0.4s; }
-.product-card:hover { transform: translateY(-10px); border-color: var(--gold); }
-.product-image { height: 350px; overflow: hidden; position: relative; }
-.product-image img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
-.product-card:hover img { transform: scale(1.1); }
+/* ===== TOAST ===== */
+#toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(80px);background:var(--d3);border:1px solid var(--g);color:#fff;padding:.85rem 1.8rem;font-size:.8rem;letter-spacing:.05em;z-index:4000;transition:transform .4s cubic-bezier(.25,.46,.45,.94);display:flex;align-items:center;gap:.8rem;white-space:nowrap;}
+#toast.show{transform:translateX(-50%) translateY(0);}
 
-.add-to-cart-btn { position: absolute; bottom: 0; width: 100%; padding: 15px; background: var(--gold); border: none; font-family: var(--font-display); font-size: 1rem; cursor: pointer; transform: translateY(100%); transition: 0.3s; }
-.product-card:hover .add-to-cart-btn { transform: translateY(0); }
+/* ===== CART DRAWER ===== */
+#cart-ov{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:1100;opacity:0;pointer-events:none;transition:opacity .35s;backdrop-filter:blur(6px);}
+#cart-ov.open{opacity:1;pointer-events:all;}
+#cart-dr{position:fixed;top:0;right:0;bottom:0;width:420px;background:var(--d2);z-index:1200;transform:translateX(100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);display:flex;flex-direction:column;border-left:1px solid var(--border);}
+#cart-dr.open{transform:translateX(0);}
+.cart-hd{padding:1.8rem 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.cart-hd-title{font-family:var(--fd);font-size:1.4rem;letter-spacing:.1em;}
+.cart-hd-count{font-size:.73rem;color:var(--muted);}
+.cart-x{background:none;border:none;color:var(--muted);cursor:none;font-size:1.3rem;transition:color .25s;}
+.cart-x:hover{color:#fff;}
+.cart-bd{flex:1;overflow-y:auto;padding:1.5rem 2rem;display:flex;flex-direction:column;gap:1.5rem;}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1rem;color:var(--muted);text-align:center;}
+.cart-empty-ico{font-size:3rem;opacity:.4;}
+.cart-item-row{display:flex;gap:1rem;align-items:flex-start;}
+.ci-img{width:74px;height:94px;object-fit:cover;flex-shrink:0;background:var(--d4);}
+.ci-body{flex:1;}
+.ci-brand{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.2rem;}
+.ci-name{font-size:.86rem;font-weight:500;margin-bottom:.3rem;line-height:1.3;}
+.ci-meta{font-size:.7rem;color:var(--muted);margin-bottom:.6rem;}
+.ci-row{display:flex;justify-content:space-between;align-items:center;}
+.ci-price{font-family:var(--fd);font-size:1.05rem;color:var(--gold);}
+.ci-qty{display:flex;align-items:center;gap:.5rem;}
+.ci-qb{background:var(--d4);border:1px solid var(--border);color:#fff;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:.8rem;cursor:none;transition:all .25s;}
+.ci-qb:hover{border-color:var(--gold);color:var(--gold);}
+.ci-qv{font-size:.82rem;min-width:1.4rem;text-align:center;}
+.ci-del{background:none;border:none;color:var(--muted);cursor:none;transition:color .25s;font-size:.85rem;align-self:flex-start;}
+.ci-del:hover{color:var(--r);}
+.cart-ft{padding:1.8rem 2rem;border-top:1px solid var(--border);}
+.cart-tot-row{display:flex;justify-content:space-between;margin-bottom:.4rem;}
+.cart-tot-lbl{font-size:.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;}
+.cart-tot-val{font-family:var(--fd);font-size:1.6rem;color:var(--gold);}
+.cart-note{font-size:.7rem;color:var(--muted);margin-bottom:1.4rem;}
+.btn-co{width:100%;background:var(--g);color:#fff;border:none;padding:1.1rem;font-family:var(--fb);font-size:.82rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:none;transition:all .3s;}
+.btn-co:hover{background:var(--gold);color:var(--d);}
+.btn-cont{width:100%;background:none;border:1px solid var(--border);color:var(--muted);padding:.75rem;font-family:var(--fb);font-size:.73rem;letter-spacing:.1em;text-transform:uppercase;cursor:none;transition:all .25s;margin-top:.7rem;}
+.btn-cont:hover{border-color:var(--border2);color:#fff;}
 
-.product-info { padding: 20px; }
-.category-tag { color: var(--gold); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
-.product-info h3 { margin: 10px 0; font-family: var(--font-serif); font-size: 1.4rem; }
-.price { font-weight: 600; color: var(--white); font-size: 1.2rem; }
+/* ===== SHARED ===== */
+.eyebrow{font-size:.67rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:.8rem;}
+.sec-h{font-family:var(--fd);font-size:clamp(2.5rem,5vw,4.5rem);line-height:.94;letter-spacing:.02em;}
+.view-all{color:var(--gold);text-decoration:none;font-size:.73rem;letter-spacing:.15em;text-transform:uppercase;border-bottom:1px solid rgba(201,168,76,.35);padding-bottom:2px;transition:opacity .25s;cursor:none;}
+.view-all:hover{opacity:.6;}
+.btn-primary{display:inline-block;background:var(--g);color:#fff;border:none;padding:1rem 2.4rem;font-family:var(--fb);font-size:.8rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;cursor:none;transition:all .3s;position:relative;overflow:hidden;text-decoration:none;}
+.btn-primary::before{content:'';position:absolute;inset:0;background:var(--y);transform:translateX(-101%);transition:transform .35s ease;z-index:0;}
+.btn-primary span{position:relative;z-index:1;}
+.btn-primary:hover{color:var(--d);}
+.btn-primary:hover::before{transform:translateX(0);}
+.btn-ghost{display:inline-block;background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.65);padding:1rem 2rem;font-family:var(--fb);font-size:.8rem;letter-spacing:.13em;text-transform:uppercase;cursor:none;transition:all .3s;text-decoration:none;}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
 
-/* ============================================================
-   PANIER & MODAL PAIEMENT
-   ============================================================ */
-.cart-drawer { position: fixed; right: -400px; top: 0; width: 400px; height: 100%; background: var(--dark2); z-index: 2000; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 30px; border-left: 1px solid var(--border); display:flex; flex-direction:column; }
-.cart-drawer.active { right: 0; box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
-.cart-items { flex-grow: 1; overflow-y: auto; margin: 30px 0; }
-.cart-item { display: flex; gap: 15px; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--border); }
-.cart-item img { width: 80px; height: 80px; object-fit: cover; }
+/* PRODUCT CARD */
+.pcard{background:var(--d3);cursor:none;position:relative;transition:transform .3s;}
+.pcard:hover{transform:translateY(-3px);}
+.pc-wrap{position:relative;overflow:hidden;aspect-ratio:3/4;}
+.pc-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s ease;background:var(--d4);}
+.pcard:hover .pc-wrap img{transform:scale(1.06);}
+.pc-badge{position:absolute;top:.9rem;left:.9rem;font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;}
+.badge-new{background:var(--g);color:#fff;}
+.badge-sale{background:var(--r);color:#fff;}
+.badge-limited{background:var(--gold);color:var(--d);}
+.pc-add{position:absolute;bottom:0;left:0;right:0;background:var(--gold);color:var(--d);border:none;padding:.72rem;font-family:var(--fb);font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:none;transform:translateY(100%);transition:transform .3s ease;}
+.pcard:hover .pc-add{transform:translateY(0);}
+.pc-info{padding:.9rem 1rem 1.1rem;}
+.pc-cat{font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.2rem;}
+.pc-name{font-size:.84rem;font-weight:500;color:rgba(255,255,255,.9);margin-bottom:.5rem;line-height:1.3;}
+.pc-prices{display:flex;align-items:baseline;gap:.7rem;}
+.pc-price{font-family:var(--fd);font-size:1.12rem;letter-spacing:.04em;}
+.pc-old{font-size:.73rem;color:var(--muted);text-decoration:line-through;}
 
-.checkout-btn { width: 100%; padding: 15px; background: var(--gold); border: none; font-family: var(--font-display); font-size: 1.2rem; cursor: pointer; }
+/* REVEAL */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;}
+.rv.in{opacity:1;transform:translateY(0);}
+.rv.d1{transition-delay:.1s;}.rv.d2{transition-delay:.2s;}.rv.d3{transition-delay:.3s;}
 
-/* MODAL OVERLAY */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; }
-.modal-overlay.active { display: flex; }
-.modal-content { background: var(--dark3); padding: 40px; border: 1px solid var(--gold); width: 100%; max-width: 500px; position: relative; }
+/* ===== TICKER ===== */
+.ticker{background:var(--g);overflow:hidden;white-space:nowrap;padding:.62rem 0;}
+.ticker-t{display:inline-flex;animation:tick 28s linear infinite;}
+.ticker-i{display:inline-flex;align-items:center;gap:1.5rem;padding:0 2.5rem;font-size:.7rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;}
+.tdot{width:4px;height:4px;background:var(--y);border-radius:50%;flex-shrink:0;}
+@keyframes tick{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
-.method-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
-.method-item { border: 1px solid var(--border); padding: 15px; text-align: center; cursor: pointer; border-radius: 8px; }
-.method-item img { height: 30px; margin-bottom: 10px; }
-.method-item.selected { border-color: var(--gold); background: rgba(201, 168, 76, 0.1); }
+/* ===== HOME ===== */
+.hero{position:relative;height:100vh;display:flex;align-items:flex-end;padding:0 3rem 5rem;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(to right,rgba(8,8,8,.88) 38%,rgba(8,8,8,.25) 100%),linear-gradient(to top,rgba(8,8,8,.9) 0%,transparent 50%),url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=1800&q=80') center/cover;}
+.hero-flag{position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(to bottom,var(--g) 33.3%,var(--y) 33.3% 66.6%,var(--r) 66.6%);}
+.hero-c{position:relative;max-width:680px;}
+.hero-tag{display:inline-flex;align-items:center;gap:.6rem;background:rgba(0,133,63,.1);border:1px solid rgba(0,133,63,.28);color:rgba(255,255,255,.7);font-size:.67rem;letter-spacing:.2em;text-transform:uppercase;padding:.35rem .9rem;margin-bottom:1.5rem;}
+.hero-dot{width:5px;height:5px;background:var(--g);border-radius:50%;}
+.hero-h1{font-family:var(--fd);font-size:clamp(5rem,12vw,10rem);line-height:.88;letter-spacing:.02em;margin-bottom:1.4rem;}
+.hero-h1 .y{color:var(--y);}
+.hero-h1 .o{-webkit-text-stroke:2px rgba(255,255,255,.22);color:transparent;}
+.hero-p{font-family:var(--fs);font-style:italic;font-size:1.08rem;color:rgba(255,255,255,.55);line-height:1.7;max-width:400px;margin-bottom:2.5rem;}
+.hero-acts{display:flex;gap:1rem;flex-wrap:wrap;}
+.hero-stats{position:absolute;right:3rem;bottom:5rem;display:flex;flex-direction:column;gap:2rem;text-align:right;}
+.hs-n{font-family:var(--fd);font-size:2.8rem;color:var(--gold);line-height:1;}
+.hs-l{font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+.scroll-c{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:.4;}
+.scroll-c span{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;}
+.scroll-ln{width:1px;height:34px;background:linear-gradient(to bottom,white,transparent);animation:sp 1.6s ease infinite;}
+@keyframes sp{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform:scaleY(1);transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
 
-/* TOASTS */
-#toast-container { position: fixed; bottom: 30px; right: 30px; z-index: 9999; }
-.toast { background: var(--gold); color: var(--dark); padding: 15px 30px; margin-top: 10px; font-weight: 600; animation: slideIn 0.3s ease; }
+/* BRAND STRIP */
+.brand-strip{background:var(--d2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.7rem 3rem;display:flex;justify-content:space-between;align-items:center;gap:2rem;overflow:hidden;}
+.bs-item{font-family:var(--fd);font-size:1.05rem;letter-spacing:.15em;color:rgba(255,255,255,.14);white-space:nowrap;transition:color .3s;}
+.bs-item:hover{color:rgba(255,255,255,.38);}
+
+/* HOME COLLECTIONS */
+.home-coll{padding:6rem 3rem;background:var(--d2);}
+.coll-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;}
+.coll-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;grid-template-rows:300px 300px;gap:2px;background:rgba(255,255,255,.04);}
+.cc{position:relative;overflow:hidden;background:var(--d4);cursor:none;}
+.cc:first-child{grid-row:1/3;}
+.cc img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s;background:var(--d4);}
+.cc:hover img{transform:scale(1.06);}
+.cc-over{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.92) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:1.8rem;transition:background .35s;}
+.cc:hover .cc-over{background:linear-gradient(to top,rgba(0,133,63,.75) 0%,transparent 65%);}
+.cc-tag{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--y);margin-bottom:.35rem;}
+.cc-name{font-family:var(--fd);font-size:1.8rem;letter-spacing:.05em;margin-bottom:.25rem;}
+.cc:first-child .cc-name{font-size:2.8rem;}
+.cc-count{font-size:.7rem;color:rgba(255,255,255,.42);}
+
+/* HOME TRENDING */
+.home-trend{padding:6rem 3rem;background:var(--d);}
+.trend-hdr{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2.5rem;}
+.prod-row{display:flex;gap:1.5rem;overflow-x:auto;padding-bottom:.8rem;scrollbar-width:none;}
+.prod-row::-webkit-scrollbar{display:none;}
+
+/* FEATURE SPLIT */
+.feat-split{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;}
+.feat-img{position:relative;overflow:hidden;}
+.feat-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s;}
+.feat-split:hover .feat-img img{transform:scale(1.04);}
+.feat-img-ov{position:absolute;inset:0;background:linear-gradient(to right,transparent 50%,rgba(8,8,8,.5));}
+.feat-txt{background:var(--d3);padding:5rem 4rem;display:flex;flex-direction:column;justify-content:center;}
+.feat-kicker{font-size:.63rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.1rem;}
+.feat-h{font-family:var(--fd);font-size:clamp(2.8rem,5vw,5rem);line-height:.93;margin-bottom:1.4rem;}
+.feat-h .y{color:var(--y);}
+.feat-p{font-family:var(--fs);font-style:italic;font-size:1.02rem;color:rgba(255,255,255,.52);line-height:1.7;margin-bottom:2.5rem;max-width:380px;}
+.feat-items{display:flex;flex-direction:column;gap:1rem;margin-bottom:2.5rem;}
+.feat-item{display:flex;align-items:center;gap:.9rem;font-size:.83rem;color:rgba(255,255,255,.62);}
+.feat-dot{width:7px;height:7px;background:var(--g);border-radius:50%;flex-shrink:0;}
+
+/* SN BANNER */
+.sn-ban{position:relative;background:var(--g);padding:5rem 3rem;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:3rem;}
+.sn-ban::before{content:'SN';position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-family:var(--fd);font-size:22rem;color:rgba(0,0,0,.08);pointer-events:none;line-height:1;}
+.sn-h{font-family:var(--fd);font-size:clamp(2.5rem,6vw,5.5rem);line-height:.93;margin-bottom:.9rem;}
+.sn-h .y{color:var(--y);}
+.sn-sub{font-family:var(--fs);font-style:italic;font-size:1.02rem;color:rgba(255,255,255,.72);line-height:1.7;max-width:420px;}
+.sn-btn{background:var(--y);color:var(--d);border:none;padding:1.2rem 3rem;font-family:var(--fb);font-size:.84rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:none;transition:all .3s;flex-shrink:0;position:relative;z-index:1;}
+.sn-btn:hover{background:#fff;transform:scale(1.03);}
+
+/* LOOKBOOK */
+.lkb{padding:0;background:var(--d);}
+.lkb-hd{padding:4rem 3rem 2rem;}
+.lkb-grid{display:grid;grid-template-columns:1fr 1.6fr 1fr;gap:2px;height:75vh;}
+.lk-i{position:relative;overflow:hidden;cursor:none;}
+.lk-i img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s;filter:brightness(.83);}
+.lk-i:hover img{transform:scale(1.05);filter:brightness(1);}
+.lk-mid{display:grid;grid-template-rows:1fr 1fr;gap:2px;}
+.lk-mid>div{position:relative;overflow:hidden;cursor:none;}
+.lk-mid>div img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s;filter:brightness(.83);}
+.lk-mid>div:hover img{transform:scale(1.05);filter:brightness(1);}
+.lk-ov{position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;opacity:0;transition:opacity .3s;}
+.lk-i:hover .lk-ov,.lk-mid>div:hover .lk-ov{opacity:1;}
+.lk-name{font-family:var(--fs);font-size:.98rem;font-style:italic;}
+.lk-price{font-family:var(--fd);font-size:1.28rem;color:var(--gold);letter-spacing:.04em;}
+
+/* NEWSLETTER */
+.nl{padding:7rem 3rem;background:var(--d3);text-align:center;position:relative;overflow:hidden;}
+.nl::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(0,133,63,.07),transparent);}
+.nl-h{font-family:var(--fd);font-size:clamp(2.5rem,5vw,4.5rem);margin-bottom:.4rem;}
+.nl-h .g{color:var(--gold);}
+.nl-sub{font-family:var(--fs);font-style:italic;color:var(--muted);margin-bottom:3rem;font-size:1rem;}
+.nl-form{display:flex;max-width:480px;margin:0 auto;position:relative;z-index:1;}
+.nl-inp{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--border);border-right:none;color:#fff;padding:1rem 1.4rem;font-family:var(--fb);font-size:.87rem;outline:none;transition:border-color .3s;}
+.nl-inp::placeholder{color:var(--muted);}
+.nl-inp:focus{border-color:var(--gold);}
+.nl-btn{background:var(--gold);color:var(--d);border:1px solid var(--gold);padding:1rem 1.8rem;font-family:var(--fb);font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:none;transition:all .3s;}
+.nl-btn:hover{background:var(--y);border-color:var(--y);}
+
+/* ===== CATALOGUE ===== */
+.cat-wrap{padding-top:90px;min-height:100vh;}
+.cat-hero{background:var(--d2);padding:4rem 3rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-end;justify-content:space-between;}
+.cat-hero h1{font-family:var(--fd);font-size:clamp(3rem,7vw,6rem);line-height:.9;}
+.cat-hero h1 span{color:var(--gold);}
+.cat-layout{display:flex;gap:0;}
+
+/* FILTER SIDEBAR */
+.fs{width:255px;flex-shrink:0;padding:2.5rem 2rem;border-right:1px solid var(--border);background:var(--d2);position:sticky;top:90px;height:calc(100vh - 90px);overflow-y:auto;scrollbar-width:none;}
+.fs::-webkit-scrollbar{display:none;}
+.fs-title{font-family:var(--fd);font-size:1.08rem;letter-spacing:.1em;margin-bottom:2rem;display:flex;justify-content:space-between;align-items:center;}
+.fs-reset{background:none;border:none;color:var(--muted);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;cursor:none;transition:color .25s;font-family:var(--fb);}
+.fs-reset:hover{color:var(--gold);}
+.fs-grp{margin-bottom:2.5rem;}
+.fs-grp-title{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;}
+.fs-opts{display:flex;flex-direction:column;gap:.65rem;}
+.fs-opt{display:flex;align-items:center;gap:.8rem;cursor:none;font-size:.8rem;color:rgba(255,255,255,.58);transition:color .25s;}
+.fs-opt:hover{color:#fff;}
+.fs-chk{width:15px;height:15px;border:1px solid var(--muted2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .25s;}
+.fs-opt.chk .fs-chk{background:var(--g);border-color:var(--g);}
+.fs-opt.chk .fs-chk::after{content:'✓';font-size:.62rem;color:#fff;}
+.fs-opt.chk{color:#fff;}
+.color-swatches{display:flex;flex-wrap:wrap;gap:.55rem;}
+.csw{width:26px;height:26px;border-radius:50%;cursor:none;border:2px solid transparent;transition:all .25s;}
+.csw:hover,.csw.sel{border-color:var(--gold);transform:scale(1.15);}
+.sort-sel{width:100%;background:var(--d3);border:1px solid var(--border);color:#fff;padding:.58rem .9rem;font-family:var(--fb);font-size:.78rem;outline:none;}
+.price-sl{width:100%;accent-color:var(--gold);cursor:none;margin-bottom:.4rem;}
+.price-lbls{display:flex;justify-content:space-between;font-size:.72rem;color:var(--muted);}
+
+.cat-prods{flex:1;padding:2.5rem;}
+.cat-tb{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
+.act-filt{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;}
+.af-tag{display:inline-flex;align-items:center;gap:.4rem;background:var(--d4);border:1px solid var(--border);padding:.25rem .7rem;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;}
+.af-rm{background:none;border:none;color:var(--muted);cursor:none;font-size:.75rem;transition:color .25s;}
+.af-rm:hover{color:#fff;}
+.view-btns{display:flex;gap:.4rem;}
+.vb{background:none;border:1px solid var(--border);color:var(--muted);width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:none;transition:all .25s;font-size:.82rem;}
+.vb.act{border-color:var(--gold);color:var(--gold);}
+.prods-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.prods-grid.lv{grid-template-columns:1fr;}
+.prods-grid.lv .pcard{display:flex;}
+.prods-grid.lv .pc-wrap{width:190px;flex-shrink:0;aspect-ratio:auto;height:250px;}
+.prods-grid.lv .pc-info{flex:1;padding:1.8rem 2rem;}
+.prods-grid.lv .pc-name{font-size:1.08rem;margin-bottom:.8rem;}
+.no-prods{text-align:center;padding:5rem;color:var(--muted);font-family:var(--fs);font-style:italic;font-size:1.2rem;}
+.load-more-wrap{text-align:center;margin-top:3rem;}
+.btn-load{background:none;border:1px solid var(--border);color:rgba(255,255,255,.58);padding:.9rem 2.8rem;font-family:var(--fb);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;cursor:none;transition:all .3s;}
+.btn-load:hover{border-color:var(--gold);color:var(--gold);}
+
+/* ===== PRODUCT DETAIL ===== */
+.pd-wrap{padding-top:90px;min-height:100vh;}
+.pd-bc{padding:1.5rem 3rem;border-bottom:1px solid var(--border);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;gap:.7rem;align-items:center;}
+.pd-bc a{color:var(--muted);text-decoration:none;cursor:none;transition:color .25s;}
+.pd-bc a:hover{color:#fff;}
+.pd-layout{display:grid;grid-template-columns:1.1fr 1fr;}
+.pd-gal{padding:2.5rem;display:flex;flex-direction:column;gap:1.5rem;position:sticky;top:90px;height:calc(100vh - 90px);}
+.pd-main{flex:1;overflow:hidden;background:var(--d3);}
+.pd-main img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s;}
+.pd-main:hover img{transform:scale(1.04);}
+.pd-thumbs{display:flex;gap:.75rem;}
+.pd-thumb{width:70px;height:88px;overflow:hidden;cursor:none;border:2px solid transparent;transition:border-color .25s;background:var(--d4);}
+.pd-thumb.act{border-color:var(--gold);}
+.pd-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+.pd-thumb:hover{border-color:rgba(201,168,76,.5);}
+.pd-info{padding:3rem;border-left:1px solid var(--border);overflow-y:auto;max-height:calc(100vh - 90px);scrollbar-width:none;}
+.pd-info::-webkit-scrollbar{display:none;}
+.pd-brand{font-size:.63rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.45rem;}
+.pd-name{font-family:var(--fd);font-size:clamp(2rem,4vw,3.5rem);line-height:.94;letter-spacing:.03em;margin-bottom:.7rem;}
+.pd-tagline{font-family:var(--fs);font-style:italic;font-size:1rem;color:rgba(255,255,255,.48);margin-bottom:2rem;}
+.pd-price-wr{display:flex;align-items:baseline;gap:1rem;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
+.pd-price{font-family:var(--fd);font-size:2.2rem;color:var(--gold);letter-spacing:.04em;}
+.pd-old{font-size:.92rem;color:var(--muted);text-decoration:line-through;}
+.pd-save{background:var(--r);color:#fff;padding:.18rem .55rem;font-size:.63rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;}
+.pd-sec{margin-bottom:2rem;}
+.pd-sec-lbl{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:.9rem;}
+.color-opts{display:flex;gap:.75rem;flex-wrap:wrap;}
+.color-o{width:30px;height:30px;border-radius:50%;cursor:none;border:3px solid transparent;transition:all .25s;}
+.color-o:hover,.color-o.sel{border-color:var(--gold);transform:scale(1.1);}
+.size-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.55rem;}
+.sz-btn{background:var(--d4);border:1px solid var(--border);color:rgba(255,255,255,.7);padding:.62rem;font-family:var(--fb);font-size:.78rem;font-weight:500;text-align:center;cursor:none;transition:all .25s;}
+.sz-btn:hover{border-color:rgba(255,255,255,.28);color:#fff;}
+.sz-btn.sel{background:var(--g);border-color:var(--g);color:#fff;}
+.qty-ctrl{display:flex;align-items:center;border:1px solid var(--border);width:fit-content;}
+.qb{background:none;border:none;color:rgba(255,255,255,.6);width:38px;height:40px;display:flex;align-items:center;justify-content:center;cursor:none;font-size:1.05rem;transition:all .25s;}
+.qb:hover{background:var(--d4);color:#fff;}
+.qn{font-family:var(--fd);font-size:1.15rem;padding:0 1.1rem;border-left:1px solid var(--border);border-right:1px solid var(--border);}
+.pd-acts{display:flex;flex-direction:column;gap:.75rem;margin-top:2.5rem;}
+.btn-add{width:100%;background:var(--g);color:#fff;border:none;padding:1.05rem;font-family:var(--fb);font-size:.82rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:none;transition:all .3s;}
+.btn-add:hover{background:var(--gold);color:var(--d);}
+.btn-wish{width:100%;background:none;border:1px solid var(--border);color:rgba(255,255,255,.48);padding:.95rem;font-family:var(--fb);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;cursor:none;transition:all .25s;}
+.btn-wish:hover{border-color:var(--r);color:var(--r);}
+.pd-perks{display:flex;flex-direction:column;gap:.75rem;margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border);}
+.pk-item{display:flex;align-items:center;gap:.75rem;font-size:.78rem;color:rgba(255,255,255,.47);}
+.pk-ico{color:var(--g);font-size:.95rem;flex-shrink:0;}
+.tab-btns{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.5rem;}
+.tb{background:none;border:none;color:var(--muted);padding:.75rem 1.4rem;font-family:var(--fb);font-size:.73rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;cursor:none;transition:all .25s;border-bottom:2px solid transparent;margin-bottom:-1px;}
+.tb:hover{color:#fff;}
+.tb.act{color:var(--gold);border-bottom-color:var(--gold);}
+.tab-c{display:none;font-size:.83rem;color:rgba(255,255,255,.58);line-height:1.8;}
+.tab-c.act{display:block;}
+
+/* ===== CHECKOUT ===== */
+.co-wrap{padding-top:90px;min-height:100vh;}
+.co-layout{display:grid;grid-template-columns:1fr 400px;min-height:calc(100vh - 90px);}
+.co-main{padding:3rem;border-right:1px solid var(--border);}
+.co-aside{padding:3rem 2.5rem;background:var(--d2);position:sticky;top:90px;height:calc(100vh - 90px);overflow-y:auto;}
+.co-step{font-size:.63rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;}
+.co-h{font-family:var(--fd);font-size:3rem;letter-spacing:.05em;margin-bottom:3rem;}
+.co-sec{margin-bottom:3rem;}
+.co-sec-title{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.fg.full{grid-template-columns:1fr;}
+.fgrp{display:flex;flex-direction:column;gap:.45rem;}
+.flbl{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);}
+.finp{background:rgba(255,255,255,.04);border:1px solid var(--border);color:#fff;padding:.82rem 1rem;font-family:var(--fb);font-size:.86rem;outline:none;transition:border-color .3s;}
+.finp:focus{border-color:var(--gold);}
+.finp::placeholder{color:var(--muted2);}
+.fsel{background:var(--d3);border:1px solid var(--border);color:#fff;padding:.82rem 1rem;font-family:var(--fb);font-size:.86rem;outline:none;}
+.pay-methods{display:flex;flex-direction:column;gap:.75rem;}
+.pay-m{display:flex;align-items:center;gap:1rem;padding:.95rem 1.1rem;background:var(--d3);border:1px solid var(--border);cursor:none;transition:border-color .3s;}
+.pay-m.sel{border-color:var(--g);}
+.pay-radio{width:17px;height:17px;border-radius:50%;border:2px solid var(--muted2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s;}
+.pay-m.sel .pay-radio{border-color:var(--g);}
+.pay-rdot{width:7px;height:7px;background:var(--g);border-radius:50%;opacity:0;transition:opacity .25s;}
+.pay-m.sel .pay-rdot{opacity:1;}
+.pay-nm{font-size:.83rem;font-weight:500;}
+.pay-ds{font-size:.7rem;color:var(--muted);}
+.pay-ic{margin-left:auto;font-size:1.2rem;}
+.co-aside-h{font-family:var(--fd);font-size:1.3rem;letter-spacing:.08em;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border);}
+.co-items{display:flex;flex-direction:column;gap:1.2rem;margin-bottom:2rem;}
+.co-item{display:flex;gap:.8rem;align-items:flex-start;}
+.co-item-img{width:58px;height:74px;object-fit:cover;flex-shrink:0;background:var(--d4);}
+.co-item-name{font-size:.8rem;font-weight:500;margin-bottom:.2rem;}
+.co-item-meta{font-size:.68rem;color:var(--muted);}
+.co-item-price{font-family:var(--fd);font-size:1rem;color:var(--gold);margin-left:auto;flex-shrink:0;}
+.co-summ{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.5rem;}
+.summ-row{display:flex;justify-content:space-between;font-size:.8rem;}
+.summ-row.tot{padding-top:.75rem;border-top:1px solid var(--border);}
+.summ-row.tot .sv{font-family:var(--fd);font-size:1.4rem;color:var(--gold);}
+.btn-place{width:100%;background:var(--g);color:#fff;border:none;padding:1.15rem;font-family:var(--fb);font-size:.83rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;cursor:none;transition:all .3s;}
+.btn-place:hover{background:var(--gold);color:var(--d);}
+.secure-note{text-align:center;font-size:.68rem;color:var(--muted);margin-top:.75rem;display:flex;align-items:center;justify-content:center;gap:.45rem;}
+
+/* ===== MEMBERS ===== */
+.mb-wrap{padding-top:90px;min-height:100vh;}
+.mb-hero{position:relative;background:var(--d2);padding:5rem 3rem;overflow:hidden;display:flex;align-items:center;gap:5rem;}
+.mb-hero::before{content:'VIP';position:absolute;right:-1rem;top:50%;transform:translateY(-50%);font-family:var(--fd);font-size:20rem;color:rgba(201,168,76,.04);pointer-events:none;line-height:1;}
+.mb-txt{max-width:500px;}
+.mb-h{font-family:var(--fd);font-size:clamp(3rem,7vw,6rem);line-height:.9;margin-bottom:1rem;}
+.mb-h .g{color:var(--gold);}
+.mb-sub{font-family:var(--fs);font-style:italic;font-size:1.02rem;color:rgba(255,255,255,.5);line-height:1.7;margin-bottom:2rem;}
+.auth-box{background:var(--d3);border:1px solid var(--border);padding:2.5rem;min-width:370px;}
+.auth-tabs-wr{display:flex;margin-bottom:2rem;border-bottom:1px solid var(--border);}
+.at{flex:1;background:none;border:none;color:var(--muted);padding:.95rem;font-family:var(--fb);font-size:.73rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;cursor:none;transition:all .25s;border-bottom:2px solid transparent;margin-bottom:-1px;}
+.at.act{color:var(--gold);border-bottom-color:var(--gold);}
+.af{display:none;}.af.act{display:block;}
+.af .fgrp{margin-bottom:1.1rem;}
+.btn-auth{width:100%;background:var(--gold);color:var(--d);border:none;padding:.95rem;font-family:var(--fb);font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:none;transition:all .3s;margin-top:.75rem;}
+.btn-auth:hover{background:var(--y);}
+.auth-div{text-align:center;color:var(--muted);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin:1.4rem 0;position:relative;}
+.auth-div::before,.auth-div::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:var(--border);}
+.auth-div::before{left:0;}.auth-div::after{right:0;}
+.social-auth-btns{display:flex;gap:.75rem;}
+.sab{flex:1;background:var(--d4);border:1px solid var(--border);color:rgba(255,255,255,.58);padding:.75rem;font-family:var(--fb);font-size:.73rem;letter-spacing:.08em;text-transform:uppercase;cursor:none;transition:all .25s;text-align:center;}
+.sab:hover{border-color:var(--border2);color:#fff;}
+.mb-perks{padding:6rem 3rem;background:var(--d);}
+.perks-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.pk-card{background:var(--d3);padding:2.5rem;border:1px solid var(--border);transition:border-color .3s,transform .3s;}
+.pk-card:hover{border-color:var(--gold);transform:translateY(-4px);}
+.pk-card-ico{font-size:2.1rem;margin-bottom:1.1rem;}
+.pk-card-title{font-family:var(--fd);font-size:1.3rem;letter-spacing:.07em;margin-bottom:.55rem;}
+.pk-card-desc{font-size:.8rem;color:var(--muted);line-height:1.7;}
+.tiers{padding:6rem 3rem;background:var(--d2);}
+.tiers-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.tier{background:var(--d3);border:1px solid var(--border);padding:2.5rem;transition:all .3s;position:relative;overflow:hidden;}
+.tier.feat{border-color:var(--gold);}
+.tier.feat::before{content:'POPULAIRE';position:absolute;top:1.1rem;right:-2.4rem;background:var(--gold);color:var(--d);font-size:.58rem;font-weight:700;letter-spacing:.15em;padding:.28rem 2.8rem;transform:rotate(45deg);}
+.tier-ico{font-size:2rem;margin-bottom:.9rem;}
+.tier-name{font-family:var(--fd);font-size:2rem;letter-spacing:.08em;margin-bottom:.28rem;}
+.tier-price{font-size:.8rem;color:var(--muted);margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);}
+.tier-feats{display:flex;flex-direction:column;gap:.65rem;margin-bottom:2rem;}
+.tier-feat{display:flex;align-items:center;gap:.65rem;font-size:.78rem;color:rgba(255,255,255,.62);}
+.tier-feat::before{content:'✓';color:var(--g);font-weight:700;}
+.btn-tier{width:100%;background:none;border:1px solid var(--border);color:rgba(255,255,255,.58);padding:.88rem;font-family:var(--fb);font-size:.73rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:none;transition:all .3s;}
+.tier.feat .btn-tier{background:var(--gold);border-color:var(--gold);color:var(--d);}
+.btn-tier:hover{border-color:var(--gold);color:var(--gold);}
+.tier.feat .btn-tier:hover{background:var(--y);}
+
+/* ===== ADMIN PANEL ===== */
+#admin-ov{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:2000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+#admin-ov.open{display:flex;}
+#admin-modal{background:var(--d2);border:1px solid var(--border2);width:min(900px,95vw);max-height:90vh;display:flex;flex-direction:column;overflow:hidden;}
+.adm-hd{padding:1.8rem 2rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--d3);}
+.adm-title{font-family:var(--fd);font-size:1.6rem;letter-spacing:.1em;display:flex;align-items:center;gap:.8rem;}
+.adm-title em{font-style:normal;color:var(--gold);}
+.adm-title .adm-badge{background:var(--g);color:#fff;font-size:.6rem;padding:.2rem .6rem;letter-spacing:.1em;font-family:var(--fb);font-weight:700;}
+.adm-x{background:none;border:none;color:var(--muted);cursor:none;font-size:1.4rem;transition:color .25s;}
+.adm-x:hover{color:#fff;}
+.adm-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--d2);}
+.adm-tab{background:none;border:none;color:var(--muted);padding:1rem 1.5rem;font-family:var(--fb);font-size:.73rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:none;transition:all .25s;border-bottom:2px solid transparent;margin-bottom:-1px;}
+.adm-tab.act{color:var(--gold);border-bottom-color:var(--gold);}
+.adm-body{flex:1;overflow-y:auto;padding:2rem;}
+.adm-panel{display:none;}.adm-panel.act{display:block;}
+
+/* ADD PRODUCT FORM */
+.apf-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.apf-grid.full{grid-template-columns:1fr;}
+.apf-group{display:flex;flex-direction:column;gap:.4rem;}
+.apf-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
+.apf-input,.apf-select,.apf-textarea{background:rgba(255,255,255,.04);border:1px solid var(--border);color:#fff;padding:.8rem 1rem;font-family:var(--fb);font-size:.84rem;outline:none;transition:border-color .3s;width:100%;}
+.apf-input:focus,.apf-select:focus,.apf-textarea:focus{border-color:var(--gold);}
+.apf-input::placeholder,.apf-textarea::placeholder{color:var(--muted2);}
+.apf-textarea{min-height:80px;resize:vertical;}
+.apf-select{background:var(--d3);}
+.badge-select{display:flex;gap:.6rem;flex-wrap:wrap;}
+.badge-opt{padding:.35rem .9rem;border:1px solid var(--border);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;cursor:none;transition:all .25s;font-family:var(--fb);}
+.badge-opt:hover{border-color:rgba(255,255,255,.2);}
+.badge-opt.sel-new{background:var(--g);border-color:var(--g);color:#fff;}
+.badge-opt.sel-sale{background:var(--r);border-color:var(--r);color:#fff;}
+.badge-opt.sel-limited{background:var(--gold);border-color:var(--gold);color:var(--d);}
+.badge-opt.sel-none{background:var(--d4);border-color:var(--border2);color:#fff;}
+.img-preview{width:100%;height:160px;background:var(--d4);border:1px dashed var(--border2);display:flex;align-items:center;justify-content:center;overflow:hidden;margin-top:.4rem;}
+.img-preview img{width:100%;height:100%;object-fit:cover;display:none;}
+.img-preview-ph{font-size:.78rem;color:var(--muted);text-align:center;padding:1rem;}
+.adm-form-actions{display:flex;gap:1rem;margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border);}
+.btn-save{background:var(--g);color:#fff;border:none;padding:.9rem 2.5rem;font-family:var(--fb);font-size:.8rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;cursor:none;transition:all .3s;}
+.btn-save:hover{background:var(--gl);}
+.btn-clear{background:none;border:1px solid var(--border);color:var(--muted);padding:.9rem 1.8rem;font-family:var(--fb);font-size:.8rem;letter-spacing:.13em;text-transform:uppercase;cursor:none;transition:all .25s;}
+.btn-clear:hover{border-color:var(--border2);color:#fff;}
+.btn-export{background:var(--gold);color:var(--d);border:none;padding:.9rem 1.8rem;font-family:var(--fb);font-size:.8rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;cursor:none;transition:all .25s;margin-left:auto;}
+.btn-export:hover{background:var(--y);}
+
+/* PRODUCT TABLE */
+.prod-table{width:100%;border-collapse:collapse;}
+.prod-table th{text-align:left;padding:.8rem 1rem;font-size:.63rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--border);font-weight:600;}
+.prod-table td{padding:.8rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);font-size:.82rem;vertical-align:middle;}
+.prod-table tr:hover td{background:rgba(255,255,255,.02);}
+.pt-img{width:42px;height:52px;object-fit:cover;background:var(--d4);}
+.pt-name{font-weight:500;max-width:180px;}
+.pt-badge{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:.18rem .5rem;}
+.pt-price{font-family:var(--fd);font-size:1rem;color:var(--gold);}
+.tbl-actions{display:flex;gap:.5rem;}
+.tbl-btn{background:none;border:1px solid var(--border);color:var(--muted);padding:.3rem .7rem;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;cursor:none;transition:all .25s;font-family:var(--fb);}
+.tbl-btn.edit:hover{border-color:var(--gold);color:var(--gold);}
+.tbl-btn.del:hover{border-color:var(--r);color:var(--r);}
+.prod-count-badge{background:var(--d4);border:1px solid var(--border);padding:.3rem .8rem;font-size:.7rem;color:var(--muted);display:inline-flex;align-items:center;gap:.5rem;margin-bottom:1.5rem;}
+.prod-count-badge span{color:var(--gold);font-weight:600;}
+
+/* STATS CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;}
+.stat-card{background:var(--d3);border:1px solid var(--border);padding:1.5rem;transition:border-color .3s;}
+.stat-card:hover{border-color:var(--gold);}
+.stat-card-ico{font-size:1.5rem;margin-bottom:.6rem;}
+.stat-card-val{font-family:var(--fd);font-size:2.2rem;color:var(--gold);letter-spacing:.04em;line-height:1;}
+.stat-card-lbl{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-top:.3rem;}
+.recent-orders{margin-top:1.5rem;}
+.ro-title{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem;}
+.ro-item{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid var(--border);font-size:.82rem;}
+.ro-id{color:var(--muted);font-family:var(--fd);letter-spacing:.05em;}
+.ro-status{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;}
+.ro-status.delivered{background:rgba(0,133,63,.15);color:var(--g);}
+.ro-status.pending{background:rgba(201,168,76,.12);color:var(--gold);}
+.ro-status.processing{background:rgba(227,27,35,.1);color:var(--r);}
+
+/* ===== FOOTER ===== */
+footer{background:var(--d2);border-top:1px solid var(--border);padding:5rem 3rem 2.5rem;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:4rem;margin-bottom:4rem;}
+.footer-logo{font-family:var(--fd);font-size:2rem;letter-spacing:.1em;margin-bottom:1rem;display:block;}
+.footer-logo em{color:var(--gold);font-style:normal;}
+.footer-desc{font-size:.8rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem;}
+.footer-socials{display:flex;gap:.75rem;}
+.fso{width:35px;height:35px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);text-decoration:none;font-size:.78rem;transition:all .3s;cursor:none;}
+.fso:hover{border-color:var(--gold);color:var(--gold);}
+.fc-title{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:#fff;margin-bottom:1.4rem;}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:.65rem;}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:.8rem;transition:color .25s;cursor:none;}
+.footer-links a:hover{color:var(--gold);}
+.footer-btm{border-top:1px solid var(--border);padding-top:2rem;display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted2);}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1100px){
+  #nav{padding:1.2rem 2rem;}#nav.s{padding:.9rem 2rem;}
+  .hero{padding:0 2rem 4rem;}.hero-stats{display:none;}
+  .home-coll,.home-trend,.mb-perks,.tiers{padding:4rem 2rem;}
+  .coll-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .cc:first-child{grid-row:auto;grid-column:1/-1;}
+  .feat-split{grid-template-columns:1fr;}.feat-img{height:50vw;}.feat-txt{padding:3rem 2rem;}
+  .sn-ban{flex-direction:column;gap:2rem;padding:3rem 2rem;}
+  .lkb-grid{grid-template-columns:1fr 1fr;height:auto;}.lk-mid{grid-template-rows:auto;}
+  .pd-layout{grid-template-columns:1fr;}.pd-gal{position:static;height:auto;}.pd-info{max-height:none;border-left:none;border-top:1px solid var(--border);}
+  .co-layout{grid-template-columns:1fr;}.co-aside{position:static;height:auto;}
+  .mb-hero{flex-direction:column;gap:2rem;}.perks-grid,.tiers-grid{grid-template-columns:1fr 1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:2.5rem;}
+  .cat-layout{flex-direction:column;}.fs{width:100%;position:static;height:auto;border-right:none;border-bottom:1px solid var(--border);}
+  .prods-grid{grid-template-columns:repeat(2,1fr);}
+  #admin-modal{width:95vw;}
+  .apf-grid{grid-template-columns:1fr;}.stats-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:768px){
+  .nav-links{display:none;}.nav-hbg{display:block;}
+  .hero-h1{font-size:clamp(3.5rem,15vw,6rem);}
+  .hero-acts{flex-direction:column;align-items:flex-start;}
+  .brand-strip{padding:1.4rem;gap:1rem;}.bs-item{font-size:.85rem;}
+  .perks-grid,.tiers-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  .fg{grid-template-columns:1fr;}
+  #cart-dr{width:100%;}
+  .auth-box{min-width:auto;width:100%;}
+  .prods-grid{grid-template-columns:1fr 1fr;}
+  .nl-form{flex-direction:column;}.nl-inp{border-right:1px solid var(--border);}
+  .coll-grid{grid-template-columns:1fr;}
+  .stats-grid{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
 
-<header id="header">
-    <div class="logo" onclick="switchPage('home')">VICTORY</div>
-    <nav>
-        <ul>
-            <li><a onclick="switchPage('home')">Accueil</a></li>
-            <li><a onclick="switchPage('shop')">Shop</a></li>
-            <li><a onclick="switchPage('about')">Héritage</a></li>
-        </ul>
-    </nav>
-    <div class="nav-icons">
-        <div class="cart-trigger" onclick="toggleCart()">
-            🛒 <span class="cart-count">0</span>
-        </div>
-    </div>
-</header>
+<!-- CURSOR -->
+<div id="cur"></div><div id="cur-r"></div>
 
-<main id="home" class="page active">
-    <section style="height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-        <h1 style="font-family: var(--font-display); font-size: 6rem; color: var(--gold);">DOMINEZ VOTRE TERRAIN</h1>
-        <p style="font-family: var(--font-serif); font-size: 1.5rem; max-width: 600px;">L'excellence athlétique, de Dakar au monde entier.</p>
-        <button class="checkout-btn" style="width: auto; padding: 15px 40px; margin-top: 30px;" onclick="switchPage('shop')">Explorer la collection</button>
-    </section>
-</main>
+<!-- TOAST -->
+<div id="toast"><span style="color:var(--g)">✓</span><span id="toast-msg">Produit ajouté</span></div>
 
-<main id="shop" class="page">
-    <h2 style="text-align: center; font-family: var(--font-display); font-size: 3rem;">CATALOGUE VICTORY</h2>
-    
-    <div class="shop-filters">
-        <button onclick="filterShop('all')" class="filter-btn active">Tout</button>
-        <button onclick="filterShop('performance')" class="filter-btn">Performance</button>
-        <button onclick="filterShop('street')" class="filter-btn">Lifestyle</button>
-    </div>
-
-    <div class="product-grid">
-        <div class="product-card" data-category="performance">
-            <div class="product-image">
-                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff" alt="Lion Pro">
-                <button class="add-to-cart-btn" onclick="addToCart('Lion Pro V1', 75000, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff')">Ajouter au panier</button>
-            </div>
-            <div class="product-info">
-                <span class="category-tag">Lion's Den</span>
-                <h3>Lion Pro V1</h3>
-                <p class="price">75.000 CFA</p>
-            </div>
-        </div>
-
-        <div class="product-card" data-category="street">
-            <div class="product-image">
-                <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3" alt="Dakar Hoodie">
-                <button class="add-to-cart-btn" onclick="addToCart('Dakar Heritage Hoodie', 45000, 'https://images.unsplash.com/photo-1552346154-21d32810aba3')">Ajouter au panier</button>
-            </div>
-            <div class="product-info">
-                <span class="category-tag">Dakar Street</span>
-                <h3>Heritage Hoodie</h3>
-                <p class="price">45.000 CFA</p>
-            </div>
-        </div>
-    </div>
-</main>
-
-<div id="cart-drawer" class="cart-drawer">
-    <h2 style="font-family: var(--font-display);">VOTRE PANIER</h2>
-    <div class="cart-items">
-        </div>
-    <div class="cart-footer">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: bold;">
-            <span>TOTAL</span>
-            <span id="cart-total">0 CFA</span>
-        </div>
-        <button class="checkout-btn" onclick="openCheckout()">PASSER À LA CAISSE</button>
-    </div>
-    <button onclick="toggleCart()" style="margin-top: 20px; background: none; color: white; border: none; cursor: pointer;">Fermer</button>
+<!-- CART -->
+<div id="cart-ov" onclick="closeCart()"></div>
+<div id="cart-dr">
+  <div class="cart-hd">
+    <div><div class="cart-hd-title">MON PANIER</div><div class="cart-hd-count" id="cart-hd-cnt">0 article</div></div>
+    <button class="cart-x" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-bd" id="cart-bd"><div class="cart-empty"><div class="cart-empty-ico">🛒</div><div>Votre panier est vide</div></div></div>
+  <div class="cart-ft">
+    <div class="cart-tot-row"><span class="cart-tot-lbl">Total</span><span class="cart-tot-val" id="cart-tot">0 FCFA</span></div>
+    <div class="cart-note">Livraison gratuite à Dakar · Retours 30 jours</div>
+    <button class="btn-co" onclick="goCheckout()">Commander — <span id="cart-tot-btn">0 FCFA</span></button>
+    <button class="btn-cont" onclick="closeCart()">Continuer les achats</button>
+  </div>
 </div>
 
-<div id="checkout-modal" class="modal-overlay">
-    <div class="modal-content">
-        <h2 style="font-family: var(--font-display); color: var(--gold);">FINALISER LA COMMANDE</h2>
-        <div class="method-grid">
-            <div class="method-item" onclick="selectPayment('wave')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Wave_Logo.png" alt="Wave">
-                <div>Wave</div>
-            </div>
-            <div class="method-item" onclick="selectPayment('orange')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Orange_logo.svg" alt="OM">
-                <div>Orange Money</div>
-            </div>
+<!-- SEARCH -->
+<div id="search-ov">
+  <div style="position:absolute;top:2rem;right:2.5rem;"><button class="s-close" onclick="closeSearch()">✕</button></div>
+  <div class="s-form"><input class="s-input" id="s-inp" placeholder="Rechercher..." oninput="doSearch(this.value)"/></div>
+  <div class="s-hints">
+    <button class="s-hint" onclick="setSearch('running')">Running</button>
+    <button class="s-hint" onclick="setSearch('training')">Training</button>
+    <button class="s-hint" onclick="setSearch('femme')">Femme</button>
+    <button class="s-hint" onclick="setSearch('soldes')">Soldes</button>
+  </div>
+  <div class="s-results" id="s-results"></div>
+</div>
+
+<!-- MOBILE MENU -->
+<div id="mob-menu">
+  <button class="mob-close" onclick="closeMob()">✕</button>
+  <a onclick="nav('home');closeMob()">Accueil</a>
+  <a onclick="nav('catalogue');closeMob()">Collections</a>
+  <a onclick="nav('member');closeMob()">Membres</a>
+  <a onclick="openCart();closeMob()">Panier</a>
+</div>
+
+<!-- ADMIN MODAL -->
+<div id="admin-ov">
+  <div id="admin-modal">
+    <div class="adm-hd">
+      <div class="adm-title">
+        <span>⚙️</span>
+        ADMIN <em>VICTORY</em>
+        <span class="adm-badge">PANEL</span>
+      </div>
+      <button class="adm-x" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="adm-tabs">
+      <button class="adm-tab act" onclick="switchAdmTab('dashboard',this)">📊 Dashboard</button>
+      <button class="adm-tab" onclick="switchAdmTab('add',this)">➕ Ajouter Produit</button>
+      <button class="adm-tab" onclick="switchAdmTab('products',this)">📦 Gérer Produits</button>
+    </div>
+    <div class="adm-body">
+
+      <!-- DASHBOARD -->
+      <div class="adm-panel act" id="adm-dashboard">
+        <div class="stats-grid" id="adm-stats"></div>
+        <div class="recent-orders">
+          <div class="ro-title">Commandes Récentes (Simulées)</div>
+          <div class="ro-item"><span>#VIC-2025-001</span><span>Teranga Elite Set</span><span class="ro-status delivered">Livré</span><span style="font-family:var(--fd);color:var(--gold)">45 000 FCFA</span></div>
+          <div class="ro-item"><span>#VIC-2025-002</span><span>Dakar Run Short</span><span class="ro-status pending">En attente</span><span style="font-family:var(--fd);color:var(--gold)">18 000 FCFA</span></div>
+          <div class="ro-item"><span>#VIC-2025-003</span><span>Sneakers Gorée</span><span class="ro-status processing">En cours</span><span style="font-family:var(--fd);color:var(--gold)">65 000 FCFA</span></div>
+          <div class="ro-item"><span>#VIC-2025-004</span><span>Legging Sahel x2</span><span class="ro-status delivered">Livré</span><span style="font-family:var(--fd);color:var(--gold)">70 000 FCFA</span></div>
         </div>
-        <form onsubmit="confirmOrder(event)">
-            <input type="text" placeholder="Nom complet" required style="width: 100%; padding: 12px; margin-bottom: 10px; background: #222; border: 1px solid var(--border); color: white;">
-            <input type="tel" placeholder="Numéro de téléphone" required style="width: 100%; padding: 12px; margin-bottom: 10px; background: #222; border: 1px solid var(--border); color: white;">
-            <button type="submit" class="checkout-btn" style="background: var(--green); color: white;">CONFIRMER LE PAIEMENT</button>
+      </div>
+
+      <!-- ADD PRODUCT -->
+      <div class="adm-panel" id="adm-add">
+        <form onsubmit="saveProduct(event)" id="prod-form">
+          <input type="hidden" id="edit-id" value=""/>
+          <div class="apf-grid">
+            <div class="apf-group">
+              <label class="apf-label">Nom du produit *</label>
+              <input class="apf-input" id="fp-name" placeholder="Ex: Brassière Teranga Pro" required/>
+            </div>
+            <div class="apf-group">
+              <label class="apf-label">Catégorie *</label>
+              <select class="apf-select" id="fp-cat" required>
+                <option value="">Choisir...</option>
+                <option>Homme</option><option>Femme</option><option>Running</option>
+                <option>Training</option><option>Chaussures</option><option>Accessoires</option>
+              </select>
+            </div>
+            <div class="apf-group">
+              <label class="apf-label">Prix (FCFA) *</label>
+              <input class="apf-input" id="fp-price" type="number" min="0" placeholder="25000" required/>
+            </div>
+            <div class="apf-group">
+              <label class="apf-label">Ancien prix (FCFA)</label>
+              <input class="apf-input" id="fp-old-price" type="number" min="0" placeholder="35000 (optionnel)"/>
+            </div>
+          </div>
+          <div class="apf-grid full" style="margin-bottom:1rem">
+            <div class="apf-group">
+              <label class="apf-label">URL de l'image principale *</label>
+              <input class="apf-input" id="fp-img" placeholder="https://images.unsplash.com/..." oninput="previewImg(this.value)" required/>
+              <div class="img-preview" id="img-preview">
+                <div class="img-preview-ph">🖼️<br>Aperçu de l'image</div>
+                <img id="img-preview-img" src="" alt=""/>
+              </div>
+            </div>
+          </div>
+          <div class="apf-grid" style="margin-bottom:1rem">
+            <div class="apf-group">
+              <label class="apf-label">Tailles disponibles</label>
+              <input class="apf-input" id="fp-sizes" placeholder="XS, S, M, L, XL"/>
+            </div>
+            <div class="apf-group">
+              <label class="apf-label">Couleurs (hex)</label>
+              <input class="apf-input" id="fp-colors" placeholder="#000000, #00853F, #C9A84C"/>
+            </div>
+          </div>
+          <div class="apf-group" style="margin-bottom:1rem">
+            <label class="apf-label">Badge</label>
+            <div class="badge-select">
+              <button type="button" class="badge-opt sel-none" onclick="selectBadge('',this)">Aucun</button>
+              <button type="button" class="badge-opt" onclick="selectBadge('new',this)">Nouveau</button>
+              <button type="button" class="badge-opt" onclick="selectBadge('sale',this)">Soldes</button>
+              <button type="button" class="badge-opt" onclick="selectBadge('limited',this)">Limité</button>
+            </div>
+            <input type="hidden" id="fp-badge" value=""/>
+          </div>
+          <div class="apf-group" style="margin-bottom:1rem">
+            <label class="apf-label">Description</label>
+            <textarea class="apf-textarea" id="fp-desc" placeholder="Description du produit..."></textarea>
+          </div>
+          <div class="adm-form-actions">
+            <button type="submit" class="btn-save" id="btn-save-lbl">💾 Enregistrer le Produit</button>
+            <button type="button" class="btn-clear" onclick="resetForm()">Réinitialiser</button>
+            <button type="button" class="btn-export" onclick="exportDB()">📥 Exporter JSON</button>
+          </div>
         </form>
-        <button onclick="closeCheckout()" style="margin-top: 20px; background: none; color: white; border: none; cursor: pointer;">Annuler</button>
+      </div>
+
+      <!-- MANAGE PRODUCTS -->
+      <div class="adm-panel" id="adm-products">
+        <div class="prod-count-badge">Base de données : <span id="adm-prod-count">0</span> produits</div>
+        <div style="overflow-x:auto;">
+          <table class="prod-table" id="adm-prod-table">
+            <thead>
+              <tr>
+                <th>Image</th><th>Nom</th><th>Catégorie</th>
+                <th>Prix</th><th>Badge</th><th>Stock</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adm-tbody"></tbody>
+          </table>
+        </div>
+        <div id="adm-no-prods" style="display:none;text-align:center;padding:3rem;color:var(--muted);font-family:var(--fs);font-style:italic;font-size:1.1rem;">
+          Aucun produit dans la base de données.<br>
+          <span style="font-size:.85rem;color:var(--gold)">Ajoutez votre premier produit via l'onglet "Ajouter Produit".</span>
+        </div>
+      </div>
+
     </div>
+  </div>
 </div>
 
-<div id="toast-container"></div>
+<!-- NAVBAR -->
+<nav id="nav">
+  <a class="nav-logo" onclick="nav('home')" style="cursor:none">VICTORY<em>.</em>SN</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a onclick="nav('home')" id="nl-home" class="act">Accueil</a></li>
+    <li><a onclick="nav('catalogue')" id="nl-cat">Collections</a></li>
+    <li><a onclick="nav('catalogue')" id="nl-trend">Tendances</a></li>
+    <li><a onclick="nav('member')" id="nl-mem">Membres</a></li>
+  </ul>
+  <div class="nav-r">
+    <button class="nav-icon-btn" onclick="openSearch()">⌕</button>
+    <button class="nav-cart-btn" onclick="openCart()">
+      Panier <span class="cart-bub" id="nav-cnt">0</span>
+    </button>
+    <button class="nav-admin-btn" onclick="openAdmin()">⚙ Admin</button>
+    <button class="nav-hbg" onclick="openMob()">☰</button>
+  </div>
+</nav>
 
+<!-- ===== PAGE: HOME ===== -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-flag"></div>
+    <div class="hero-c">
+      <div class="hero-tag"><span class="hero-dot"></span>Dakar · Collection 2025</div>
+      <h1 class="hero-h1">FORGE<br><span class="y">TON</span><br><span class="o">DESTIN</span></h1>
+      <p class="hero-p">La performance rencontre l'héritage africain. Des vêtements de sport conçus pour les champions d'ici.</p>
+      <div class="hero-acts">
+        <a class="btn-primary" onclick="nav('catalogue')" style="cursor:none"><span>Explorer la Collection</span></a>
+        <a class="btn-ghost" onclick="nav('member')" style="cursor:none">Devenir Membre</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hs-n" id="hero-stat-prods">0</div><div class="hs-l">Produits</div></div>
+      <div><div class="hs-n">2K+</div><div class="hs-l">Athlètes</div></div>
+      <div><div class="hs-n">🇸🇳</div><div class="hs-l">Made in Dakar</div></div>
+    </div>
+    <div class="scroll-c"><span>Défiler</span><div class="scroll-ln"></div></div>
+  </section>
 
+  <div class="ticker"><div class="ticker-t" id="ticker"></div></div>
 
+  <div class="brand-strip">
+    <div class="bs-item">TERANGA ELITE</div><div class="bs-item">DAKAR RUN</div>
+    <div class="bs-item">SAHEL PRO</div><div class="bs-item">LIONS SN</div>
+    <div class="bs-item">GORÉE CLUB</div><div class="bs-item">VICTORY SPORT</div>
+  </div>
+
+  <div class="home-coll" id="home-coll">
+    <div class="coll-hdr rv">
+      <div><div class="eyebrow">Nos Univers</div><h2 class="sec-h">COLLECTIONS<br>SIGNATURE</h2></div>
+      <a class="view-all" onclick="nav('catalogue')" style="cursor:none">Tout voir →</a>
+    </div>
+    <div class="coll-grid rv d1">
+      <div class="cc" onclick="nav('catalogue')">
+        <img src="https://images.unsplash.com/photo-1576243345690-4e4b79b63288?w=900&q=80" loading="lazy"/>
+        <div class="cc-over"><div class="cc-tag">Édition Limitée</div><div class="cc-name">Teranga Elite</div><div class="cc-count">Dès 25 000 FCFA</div></div>
+      </div>
+      <div class="cc" onclick="nav('catalogue')">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80" loading="lazy"/>
+        <div class="cc-over"><div class="cc-tag">Running</div><div class="cc-name">Dakar Run</div><div class="cc-count">Dès 18 000 FCFA</div></div>
+      </div>
+      <div class="cc" onclick="nav('catalogue')">
+        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80" loading="lazy"/>
+        <div class="cc-over"><div class="cc-tag">Training</div><div class="cc-name">Sahel Pro</div><div class="cc-count">Dès 15 000 FCFA</div></div>
+      </div>
+      <div class="cc" onclick="nav('catalogue')">
+        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80" loading="lazy"/>
+        <div class="cc-over"><div class="cc-tag">Premium</div><div class="cc-name">Lions du Sénégal</div><div class="cc-count">Dès 35 000 FCFA</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-trend">
+    <div class="trend-hdr rv">
+      <div><div class="eyebrow">Le Plus Porté</div><h2 class="sec-h">TENDANCES</h2></div>
+      <a class="view-all" onclick="nav('catalogue')" style="cursor:none">Voir tout →</a>
+    </div>
+    <div class="prod-row rv d1" id="home-row"></div>
+  </div>
+
+  <div class="feat-split">
+    <div class="feat-img">
+      <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1000&q=80" loading="lazy"/>
+      <div class="feat-img-ov"></div>
+    </div>
+    <div class="feat-txt rv">
+      <div class="feat-kicker">Technologie & Performance</div>
+      <h2 class="feat-h">CONÇU POUR<br>LES <span class="y">GAGNANTS</span></h2>
+      <p class="feat-p">Chaque fibre pensée pour l'athlète africain. Des matières respirantes, une coupe qui libère le mouvement.</p>
+      <div class="feat-items">
+        <div class="feat-item"><div class="feat-dot"></div><span>DryTech Pro — évacuation optimale de la transpiration</span></div>
+        <div class="feat-item"><div class="feat-dot"></div><span>Résistant aux UV sahéliens — protection SPF 30+</span></div>
+        <div class="feat-item"><div class="feat-dot"></div><span>Coupe inspirée de la lutte sénégalaise</span></div>
+        <div class="feat-item"><div class="feat-dot"></div><span>Certifié éco-responsable — fabriqué au Sénégal</span></div>
+      </div>
+      <a class="btn-primary" onclick="nav('catalogue')" style="cursor:none"><span>Voir les Produits</span></a>
+    </div>
+  </div>
+
+  <div class="sn-ban rv">
+    <div><h2 class="sn-h">FIÈREMENT<br><span class="y">SÉNÉGALAIS</span></h2>
+    <p class="sn-sub">Chaque couture raconte notre histoire. Chaque fibre incarne notre force. Made in Dakar, porté partout dans le monde.</p></div>
+    <button class="sn-btn" onclick="nav('member')">Rejoindre la Famille</button>
+  </div>
+
+  <div class="lkb">
+    <div class="lkb-hd rv"><div class="eyebrow">Éditorial</div><h2 class="sec-h">LOOKBOOK 2025</h2></div>
+    <div class="lkb-grid">
+      <div class="lk-i"><img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=800&q=80" loading="lazy"/><div class="lk-ov"><div class="lk-name">Le Guerrier Moderne</div><div class="lk-price">45 000 FCFA</div></div></div>
+      <div class="lk-mid">
+        <div><img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=80" loading="lazy"/><div class="lk-ov"><div class="lk-name">Force & Élégance</div><div class="lk-price">32 000 FCFA</div></div></div>
+        <div><img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=800&q=80" loading="lazy"/><div class="lk-ov"><div class="lk-name">Dakar Nights</div><div class="lk-price">28 000 FCFA</div></div></div>
+      </div>
+      <div class="lk-i"><img src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&q=80" loading="lazy"/><div class="lk-ov"><div class="lk-name">Champion des Champions</div><div class="lk-price">55 000 FCFA</div></div></div>
+    </div>
+  </div>
+
+  <div class="nl">
+    <div class="eyebrow rv">Restez Connecté</div>
+    <h2 class="nl-h rv">REJOIGNEZ LA <span class="g">FAMILLE</span></h2>
+    <p class="nl-sub rv">Accès exclusif aux nouvelles collections, offres membres et événements Dakar.</p>
+    <form class="nl-form rv" onsubmit="handleNL(event)">
+      <input class="nl-inp" type="email" placeholder="votre@email.com" required/>
+      <button type="submit" class="nl-btn">S'inscrire</button>
+    </form>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <span class="footer-logo">VICTORY<em>.</em>SN</span>
+        <p class="footer-desc">La première marque de vêtements de sport premium du Sénégal. Conçue à Dakar, pour les athlètes du monde entier.</p>
+        <div class="footer-socials"><a href="#" class="fso">ig</a><a href="#" class="fso">tw</a><a href="#" class="fso">fb</a><a href="#" class="fso">yt</a></div>
+      </div>
+      <div><div class="fc-title">Collections</div><ul class="footer-links"><li><a onclick="nav('catalogue')">Teranga Elite</a></li><li><a onclick="nav('catalogue')">Dakar Run</a></li><li><a onclick="nav('catalogue')">Sahel Pro</a></li></ul></div>
+      <div><div class="fc-title">Service Client</div><ul class="footer-links"><li><a href="#">Livraison & Retours</a></li><li><a href="#">Guide des Tailles</a></li><li><a href="#">Contactez-nous</a></li></ul></div>
+      <div><div class="fc-title">Victory Athletics</div><ul class="footer-links"><li><a href="#">Notre Histoire</a></li><li><a onclick="nav('member')">Programme Membres</a></li></ul></div>
+    </div>
+    <div class="footer-btm"><span>© 2025 Victory Athletics Sénégal · Tous droits réservés</span><span>Fait avec ❤️ à Dakar 🇸🇳</span></div>
+  </footer>
+</div>
+
+<!-- ===== PAGE: CATALOGUE ===== -->
+<div class="page" id="page-catalogue">
+  <div class="cat-wrap">
+    <div class="cat-hero">
+      <div><div class="eyebrow">Tous les produits</div><h1>NOTRE<br><span>CATALOGUE</span></h1></div>
+      <div class="catalogue-count" id="cat-cnt" style="font-size:.8rem;color:var(--muted);letter-spacing:.1em;">0 produits</div>
+    </div>
+    <div class="cat-layout">
+      <aside class="fs">
+        <div class="fs-title">Filtres <button class="fs-reset" onclick="resetFilters()">Réinitialiser</button></div>
+        <div class="fs-grp"><div class="fs-grp-title">Catégorie</div><div class="fs-opts" id="f-cats"></div></div>
+        <div class="fs-grp"><div class="fs-grp-title">Taille</div><div class="fs-opts" id="f-sizes"></div></div>
+        <div class="fs-grp"><div class="fs-grp-title">Couleur</div><div class="color-swatches"><div class="csw" style="background:#0a0a0a;outline:1px solid rgba(255,255,255,.15)"></div><div class="csw" style="background:#00853F"></div><div class="csw" style="background:#C9A84C"></div><div class="csw" style="background:#E31B23"></div><div class="csw" style="background:#FDEF42"></div><div class="csw" style="background:#fff;outline:1px solid rgba(255,255,255,.15)"></div></div></div>
+        <div class="fs-grp"><div class="fs-grp-title">Prix Maximum</div><input type="range" class="price-sl" id="price-sl" min="1000" max="200000" step="1000" value="200000" oninput="filterPrice(this.value)"/><div class="price-lbls"><span>1 000</span><span id="price-lbl">200 000 FCFA</span></div></div>
+        <div class="fs-grp"><div class="fs-grp-title">Trier par</div><select class="sort-sel" onchange="sortProds(this.value)"><option value="default">Recommandés</option><option value="asc">Prix croissant</option><option value="desc">Prix décroissant</option><option value="new">Nouveautés</option></select></div>
+      </aside>
+      <div class="cat-prods">
+        <div class="cat-tb">
+          <div class="act-filt" id="act-filt"></div>
+          <div class="view-btns">
+            <button class="vb act" onclick="setView('grid',this)" title="Grille">⊞</button>
+            <button class="vb" onclick="setView('list',this)" title="Liste">☰</button>
+          </div>
+        </div>
+        <div class="prods-grid" id="cat-grid"></div>
+        <div id="no-prods" class="no-prods" style="display:none">Aucun produit trouvé.<br><span style="font-size:.85rem;color:var(--gold)">Ajoutez des produits via le panel Admin ⚙</span></div>
+        <div class="load-more-wrap"><button class="btn-load" onclick="loadMore()">Charger plus de produits</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: PRODUCT DETAIL ===== -->
+<div class="page" id="page-product">
+  <div class="pd-wrap">
+    <div class="pd-bc"><a onclick="nav('home')">Accueil</a><span>/</span><a onclick="nav('catalogue')">Collections</a><span>/</span><span id="pd-bc-name">Produit</span></div>
+    <div class="pd-layout">
+      <div class="pd-gal">
+        <div class="pd-main"><img id="pd-img" src="" alt=""/></div>
+        <div class="pd-thumbs" id="pd-thumbs"></div>
+      </div>
+      <div class="pd-info">
+        <div class="pd-brand">VICTORY ATHLETICS · DAKAR</div>
+        <h1 class="pd-name" id="pd-name">Produit</h1>
+        <p class="pd-tagline" id="pd-tagline">Performance pour les champions</p>
+        <div class="pd-price-wr">
+          <span class="pd-price" id="pd-price">0 FCFA</span>
+          <span class="pd-old" id="pd-old"></span>
+          <span class="pd-save" id="pd-save" style="display:none">−20%</span>
+        </div>
+        <div class="pd-sec"><div class="pd-sec-lbl">Couleur — <span id="pd-color-lbl">Noir</span></div><div class="color-opts" id="pd-colors"></div></div>
+        <div class="pd-sec"><div class="pd-sec-lbl">Taille — <span id="pd-size-lbl">Choisir</span></div><div class="size-grid" id="pd-sizes"></div></div>
+        <div class="pd-sec"><div class="pd-sec-lbl">Quantité</div>
+          <div class="qty-ctrl"><button class="qb" onclick="chgQty(-1)">−</button><div class="qn" id="pd-qty">1</div><button class="qb" onclick="chgQty(1)">+</button></div>
+        </div>
+        <div class="pd-acts">
+          <button class="btn-add" onclick="addCurrent()">Ajouter au Panier</button>
+          <button class="btn-wish">♡ Ajouter aux Favoris</button>
+        </div>
+        <div class="pd-perks">
+          <div class="pk-item"><span class="pk-ico">🚚</span>Livraison gratuite à Dakar</div>
+          <div class="pk-item"><span class="pk-ico">↩</span>Retours gratuits 30 jours</div>
+          <div class="pk-item"><span class="pk-ico">💳</span>Paiement Wave & Orange Money</div>
+        </div>
+        <div class="pd-tabs" style="margin-top:2rem;border-top:1px solid var(--border);padding-top:2rem;">
+          <div class="tab-btns">
+            <button class="tb act" onclick="showTab('desc',this)">Description</button>
+            <button class="tb" onclick="showTab('mat',this)">Matières</button>
+            <button class="tb" onclick="showTab('sz',this)">Guide Tailles</button>
+          </div>
+          <div class="tab-c act" id="tab-desc"><p id="tab-desc-txt">Produit haut de gamme conçu pour l'athlète sénégalais moderne.</p></div>
+          <div class="tab-c" id="tab-mat"><p>78% Polyester recyclé · 18% Élasthanne · 4% Spandex<br><br>· DryTech Pro<br>· UV Shield 30+<br>· AirMesh<br>· Anti-odeur naturel</p></div>
+          <div class="tab-c" id="tab-sz"><table style="width:100%;border-collapse:collapse;font-size:.78rem;color:rgba(255,255,255,.65)"><tr style="color:var(--gold);border-bottom:1px solid var(--border)"><th style="text-align:left;padding:.5rem">Taille</th><th>Poitrine</th><th>Taille</th><th>Hanches</th></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:.5rem">XS</td><td style="text-align:center">80–84</td><td style="text-align:center">60–64</td><td style="text-align:center">86–90</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:.5rem">S</td><td style="text-align:center">84–88</td><td style="text-align:center">64–68</td><td style="text-align:center">90–94</td></tr><tr style="border-bottom:1px solid var(--border)"><td style="padding:.5rem">M</td><td style="text-align:center">88–92</td><td style="text-align:center">68–72</td><td style="text-align:center">94–98</td></tr><tr><td style="padding:.5rem">L</td><td style="text-align:center">92–96</td><td style="text-align:center">72–76</td><td style="text-align:center">98–102</td></tr></table></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: CHECKOUT ===== -->
+<div class="page" id="page-checkout">
+  <div class="co-wrap">
+    <div class="co-layout">
+      <div class="co-main">
+        <div class="co-step">Étape 1 sur 2</div>
+        <h1 class="co-h">COMMANDER</h1>
+        <div class="co-sec"><div class="co-sec-title">Informations de contact</div>
+          <div class="fg"><div class="fgrp"><label class="flbl">Prénom</label><input class="finp" placeholder="Aminata"/></div><div class="fgrp"><label class="flbl">Nom</label><input class="finp" placeholder="Diallo"/></div><div class="fgrp"><label class="flbl">Email</label><input class="finp" type="email" placeholder="aminata@email.sn"/></div><div class="fgrp"><label class="flbl">Téléphone</label><input class="finp" placeholder="+221 77 000 00 00"/></div></div>
+        </div>
+        <div class="co-sec"><div class="co-sec-title">Adresse de livraison</div>
+          <div class="fg full"><div class="fgrp"><label class="flbl">Adresse</label><input class="finp" placeholder="Rue 10, Medina"/></div></div>
+          <div class="fg" style="margin-top:1rem"><div class="fgrp"><label class="flbl">Ville</label><select class="fsel"><option>Dakar</option><option>Thiès</option><option>Saint-Louis</option><option>Ziguinchor</option><option>Kaolack</option></select></div><div class="fgrp"><label class="flbl">Code postal</label><input class="finp" placeholder="11000"/></div></div>
+        </div>
+        <div class="co-sec"><div class="co-sec-title">Mode de paiement</div>
+          <div class="pay-methods">
+            <div class="pay-m sel" onclick="selPay(this)"><div class="pay-radio"><div class="pay-rdot"></div></div><div><div class="pay-nm">Wave</div><div class="pay-ds">Paiement mobile rapide</div></div><div class="pay-ic">📱</div></div>
+            <div class="pay-m" onclick="selPay(this)"><div class="pay-radio"><div class="pay-rdot"></div></div><div><div class="pay-nm">Orange Money</div><div class="pay-ds">Via votre compte Orange</div></div><div class="pay-ic">🟠</div></div>
+            <div class="pay-m" onclick="selPay(this)"><div class="pay-radio"><div class="pay-rdot"></div></div><div><div class="pay-nm">Carte bancaire</div><div class="pay-ds">Visa · Mastercard</div></div><div class="pay-ic">💳</div></div>
+            <div class="pay-m" onclick="selPay(this)"><div class="pay-radio"><div class="pay-rdot"></div></div><div><div class="pay-nm">Paiement à la livraison</div><div class="pay-ds">Disponible à Dakar</div></div><div class="pay-ic">💵</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="co-aside">
+        <div class="co-aside-h">RÉCAPITULATIF</div>
+        <div class="co-items" id="co-items"></div>
+        <div class="co-summ"><div class="summ-row"><span>Sous-total</span><span id="co-sub">0</span></div><div class="summ-row"><span>Livraison</span><span style="color:var(--g)">Gratuite</span></div><div class="summ-row tot"><span>Total</span><span class="sv" id="co-tot">0</span></div></div>
+        <button class="btn-place" onclick="placeOrder()">Confirmer la Commande</button>
+        <div class="secure-note">🔒 Paiement 100% sécurisé</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: MEMBERS ===== -->
+<div class="page" id="page-member">
+  <div class="mb-wrap">
+    <div class="mb-hero">
+      <div class="mb-txt">
+        <div class="eyebrow">Programme Exclusif</div>
+        <h1 class="mb-h">VICTORY<br><span class="g">MEMBERS</span></h1>
+        <p class="mb-sub">Rejoignez l'élite des athlètes sénégalais. Accédez à des produits exclusifs et des événements privés à Dakar.</p>
+      </div>
+      <div class="auth-box">
+        <div class="auth-tabs-wr">
+          <button class="at act" onclick="switchAuth('login',this)">Connexion</button>
+          <button class="at" onclick="switchAuth('register',this)">Inscription</button>
+        </div>
+        <div class="af act" id="af-login">
+          <div class="fgrp"><label class="flbl">Email</label><input class="finp" type="email" placeholder="votre@email.com"/></div>
+          <div class="fgrp" style="margin-top:1rem"><label class="flbl">Mot de passe</label><input class="finp" type="password" placeholder="••••••••"/></div>
+          <button class="btn-auth" onclick="showToast('Connexion réussie ! Bienvenue 🇸🇳')">Se connecter</button>
+          <div class="auth-div">ou</div>
+          <div class="social-auth-btns"><button class="sab" onclick="showToast('Google — Bientôt disponible !')">Google</button><button class="sab" onclick="showToast('Facebook — Bientôt disponible !')">Facebook</button></div>
+        </div>
+        <div class="af" id="af-reg">
+          <div class="fgrp"><label class="flbl">Prénom & Nom</label><input class="finp" placeholder="Mamadou Diallo"/></div>
+          <div class="fgrp" style="margin-top:1rem"><label class="flbl">Email</label><input class="finp" type="email" placeholder="votre@email.com"/></div>
+          <div class="fgrp" style="margin-top:1rem"><label class="flbl">Téléphone</label><input class="finp" placeholder="+221 77 000 00 00"/></div>
+          <div class="fgrp" style="margin-top:1rem"><label class="flbl">Mot de passe</label><input class="finp" type="password" placeholder="Min. 8 caractères"/></div>
+          <button class="btn-auth" onclick="showToast('Compte créé ! Bienvenue dans la famille Victory 🏆')">Créer mon compte</button>
+        </div>
+      </div>
+    </div>
+    <div class="mb-perks">
+      <div class="rv"><div class="eyebrow">Avantages Membres</div><h2 class="sec-h">POURQUOI REJOINDRE</h2></div>
+      <div class="perks-grid">
+        <div class="pk-card rv d1"><div class="pk-card-ico">🏆</div><div class="pk-card-title">ACCÈS PRIORITAIRE</div><div class="pk-card-desc">Accédez aux nouvelles collections 48h avant tout le monde.</div></div>
+        <div class="pk-card rv d2"><div class="pk-card-ico">💰</div><div class="pk-card-title">RÉDUCTIONS EXCLUSIVES</div><div class="pk-card-desc">Profitez de réductions membres allant jusqu'à 30%.</div></div>
+        <div class="pk-card rv d3"><div class="pk-card-ico">🎯</div><div class="pk-card-title">PERSONNALISATION</div><div class="pk-card-desc">Faites personnaliser vos pièces avec votre nom ou message.</div></div>
+        <div class="pk-card rv d1"><div class="pk-card-ico">🚀</div><div class="pk-card-title">LIVRAISON EXPRESS</div><div class="pk-card-desc">Livraison le jour même à Dakar pour les commandes avant 14h.</div></div>
+        <div class="pk-card rv d2"><div class="pk-card-ico">🎪</div><div class="pk-card-title">ÉVÉNEMENTS VIP</div><div class="pk-card-desc">Invitations aux défilés et événements sportifs exclusifs.</div></div>
+        <div class="pk-card rv d3"><div class="pk-card-ico">💎</div><div class="pk-card-title">PIÈCES LIMITÉES</div><div class="pk-card-desc">Accès aux éditions limitées et collaborations exclusives.</div></div>
+      </div>
+    </div>
+    <div class="tiers">
+      <div class="rv"><div class="eyebrow">Niveaux de Membership</div><h2 class="sec-h">CHOISISSEZ<br>VOTRE STATUT</h2></div>
+      <div class="tiers-grid">
+        <div class="tier rv d1"><div class="tier-ico">🥉</div><div class="tier-name">BRONZE</div><div class="tier-price">Gratuit</div><div class="tier-feats"><div class="tier-feat">Catalogue complet</div><div class="tier-feat">Newsletter exclusive</div><div class="tier-feat">Retours gratuits 30j</div></div><button class="btn-tier" onclick="showToast('Inscription Bronze — Gratuit !')">Commencer</button></div>
+        <div class="tier feat rv d2"><div class="tier-ico">🥇</div><div class="tier-name">GOLD</div><div class="tier-price">25 000 FCFA / an</div><div class="tier-feats"><div class="tier-feat">Tout Bronze inclus</div><div class="tier-feat">−20% sur tout</div><div class="tier-feat">Accès 48h avant</div><div class="tier-feat">Livraison express</div></div><button class="btn-tier" onclick="showToast('Abonnement Gold — Bientôt !')">Devenir Gold</button></div>
+        <div class="tier rv d3"><div class="tier-ico">💎</div><div class="tier-name">DIAMOND</div><div class="tier-price">75 000 FCFA / an</div><div class="tier-feats"><div class="tier-feat">Tout Gold inclus</div><div class="tier-feat">−30% permanent</div><div class="tier-feat">Personal shopper</div><div class="tier-feat">Éditions limitées</div></div><button class="btn-tier" onclick="showToast('Diamond — Sur invitation')">Statut Diamond</button></div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-grid">
+        <div><span class="footer-logo">VICTORY<em>.</em>SN</span><p class="footer-desc">La première marque de sport premium du Sénégal.</p><div class="footer-socials"><a href="#" class="fso">ig</a><a href="#" class="fso">tw</a><a href="#" class="fso">fb</a></div></div>
+        <div><div class="fc-title">Collections</div><ul class="footer-links"><li><a onclick="nav('catalogue')">Teranga Elite</a></li><li><a onclick="nav('catalogue')">Dakar Run</a></li></ul></div>
+        <div><div class="fc-title">Service Client</div><ul class="footer-links"><li><a href="#">Livraison</a></li><li><a href="#">Contact</a></li></ul></div>
+        <div><div class="fc-title">Victory</div><ul class="footer-links"><li><a href="#">Notre Histoire</a></li><li><a onclick="nav('member')">Membres</a></li></ul></div>
+      </div>
+      <div class="footer-btm"><span>© 2025 Victory Athletics Sénégal</span><span>Fait avec ❤️ à Dakar 🇸🇳</span></div>
+    </footer>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
 <script>
-/* ============================================================
-   LOGIQUE DE NAVIGATION
-   ============================================================ */
-function switchPage(pageId) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
-    window.scrollTo(0,0);
+/* ===== DB (localStorage) ===== */
+const DB_KEY = 'victory_products';
+
+// Default products seed
+const DEFAULT_PRODUCTS = [
+  {id:1,name:'Brassière Teranga Pro',category:'Femme',price:22000,oldPrice:28000,badge:'sale',sizes:'XS,S,M,L',colors:'#1a1a1a,#00853F,#C9A84C',img:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80',desc:'Brassière de sport haut de gamme pour la femme athlète.',createdAt:Date.now()-5000},
+  {id:2,name:'Short Dakar Ultra',category:'Running',price:18000,oldPrice:null,badge:'new',sizes:'S,M,L,XL',colors:'#1a1a1a,#E31B23',img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80',desc:'Short de running ultra-léger conçu pour les courses en conditions sahéliennes.',createdAt:Date.now()-4000},
+  {id:3,name:'Legging Sahel Performance',category:'Femme',price:35000,oldPrice:null,badge:'',sizes:'XS,S,M,L,XL',colors:'#0a0a0a,#C9A84C',img:'https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=800&q=80',desc:'Legging premium respirant et gainant.',createdAt:Date.now()-3000},
+  {id:4,name:'T-Shirt Lions Champion',category:'Training',price:15000,oldPrice:20000,badge:'sale',sizes:'S,M,L,XL,XXL',colors:'#1a1a1a,#00853F',img:'https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=800&q=80',desc:'T-shirt en hommage aux Lions du Sénégal, champions d\'Afrique.',createdAt:Date.now()-2000},
+  {id:5,name:'Veste Entraînement Elite',category:'Training',price:48000,oldPrice:null,badge:'new',sizes:'S,M,L,XL',colors:'#1a1a1a,#2d2d2d',img:'https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800&q=80',desc:'Veste d\'entraînement premium pour les séances intenses.',createdAt:Date.now()-1000},
+  {id:6,name:'Sneakers Gorée Run',category:'Chaussures',price:65000,oldPrice:null,badge:'limited',sizes:'38,39,40,41,42,43,44',colors:'#1a1a1a,#C9A84C,#E31B23',img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80',desc:'Chaussures de running inspirées de l\'île de Gorée.',createdAt:Date.now()},
+];
+
+function getProducts() {
+  try {
+    const raw = localStorage.getItem(DB_KEY);
+    if (!raw) {
+      localStorage.setItem(DB_KEY, JSON.stringify(DEFAULT_PRODUCTS));
+      return DEFAULT_PRODUCTS;
+    }
+    return JSON.parse(raw);
+  } catch(e) { return DEFAULT_PRODUCTS; }
 }
 
-window.onscroll = () => {
-    if (window.scrollY > 50) document.getElementById('header').classList.add('scrolled');
-    else document.getElementById('header').classList.remove('scrolled');
-};
-
-/* ============================================================
-   MOTEUR E-COMMERCE (PANIER & FILTRES)
-   ============================================================ */
-let cart = JSON.parse(localStorage.getItem('victory_storage')) || [];
-let selectedPaymentMethod = '';
-
-function toggleCart() {
-    document.getElementById('cart-drawer').classList.toggle('active');
+function saveProducts(prods) {
+  try { localStorage.setItem(DB_KEY, JSON.stringify(prods)); } catch(e) {}
 }
 
-function updateCartUI() {
-    const container = document.querySelector('.cart-items');
-    const badge = document.querySelector('.cart-count');
-    const totalDisplay = document.getElementById('cart-total');
-    
-    container.innerHTML = '';
-    let total = 0;
-
-    cart.forEach((item, index) => {
-        total += item.price * item.qty;
-        container.innerHTML += `
-            <div class="cart-item">
-                <img src="${item.img}">
-                <div>
-                    <h4>${item.name}</h4>
-                    <p>${item.price.toLocaleString()} CFA</p>
-                    <div style="margin-top:5px;">
-                        <button onclick="changeQty(${index}, -1)" style="width:25px">-</button>
-                        <span>${item.qty}</span>
-                        <button onclick="changeQty(${index}, 1)" style="width:25px">+</button>
-                    </div>
-                </div>
-                <button onclick="removeItem(${index})" style="margin-left:auto; color:var(--red); background:none; border:none; cursor:pointer">✕</button>
-            </div>
-        `;
-    });
-
-    badge.innerText = cart.reduce((acc, i) => acc + i.qty, 0);
-    totalDisplay.innerText = total.toLocaleString() + ' CFA';
-    localStorage.setItem('victory_storage', JSON.stringify(cart));
+function addProduct(prod) {
+  const prods = getProducts();
+  const id = Date.now();
+  prods.push({...prod, id, createdAt: Date.now()});
+  saveProducts(prods);
+  return id;
 }
 
-function addToCart(name, price, img) {
-    const item = cart.find(i => i.name === name);
-    if(item) item.qty++;
-    else cart.push({ name, price, img, qty: 1 });
-    updateCartUI();
-    showToast(`${name} ajouté au panier !`);
+function updateProduct(id, data) {
+  const prods = getProducts();
+  const idx = prods.findIndex(p => p.id === id);
+  if (idx !== -1) { prods[idx] = {...prods[idx], ...data}; saveProducts(prods); }
 }
 
-function changeQty(index, delta) {
-    cart[index].qty += delta;
-    if(cart[index].qty <= 0) cart.splice(index, 1);
-    updateCartUI();
+function deleteProduct(id) {
+  const prods = getProducts().filter(p => p.id !== id);
+  saveProducts(prods);
 }
 
-function removeItem(index) {
-    cart.splice(index, 1);
-    updateCartUI();
-}
+/* ===== CURSOR ===== */
+const cur = document.getElementById('cur'), curR = document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.addEventListener('mouseover', e => {
+  const big = e.target.closest('a,button,[onclick],.pcard,.cc,.lk-i,.pk-card,.tier,.pay-m,.adm-tab,.tb,.at,.badge-opt,.tbl-btn');
+  cur.classList.toggle('big', !!big); curR.classList.toggle('big', !!big);
+});
 
-/* ============================================================
-   FILTRAGE
-   ============================================================ */
-function filterShop(cat) {
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    
-    document.querySelectorAll('.product-card').forEach(card => {
-        card.style.display = (cat === 'all' || card.dataset.category === cat) ? 'block' : 'none';
-    });
-}
+/* ===== NAVBAR SCROLL ===== */
+window.addEventListener('scroll', () => { document.getElementById('nav').classList.toggle('s', scrollY > 60); });
 
-/* ============================================================
-   CHECKOUT & PAIEMENT
-   ============================================================ */
-function openCheckout() {
-    if(cart.length === 0) return showToast("Votre panier est vide");
-    toggleCart();
-    document.getElementById('checkout-modal').classList.add('active');
-}
+/* ===== TICKER ===== */
+const TICKER_ITEMS = ['Livraison Gratuite à Dakar','Nouvelle Collection 2025','Retours 30 Jours','Made in Sénégal 🇸🇳','Wave & Orange Money','Programme Fidélité','-20% Membres Gold','Qualité Premium','Éditions Limitées'];
+(function(){
+  const t = document.getElementById('ticker');
+  const all = [...TICKER_ITEMS,...TICKER_ITEMS];
+  t.innerHTML = all.map(i=>`<span class="ticker-i">${i}<span class="tdot"></span></span>`).join('');
+})();
 
-function closeCheckout() {
-    document.getElementById('checkout-modal').classList.remove('active');
-}
-
-function selectPayment(m) {
-    selectedPaymentMethod = m;
-    document.querySelectorAll('.method-item').forEach(el => el.classList.remove('selected'));
-    event.currentTarget.classList.add('selected');
-}
-
-function confirmOrder(e) {
-    e.preventDefault();
-    if(!selectedPaymentMethod) return showToast("Choisissez un mode de paiement");
-    
-    showToast("Traitement en cours...");
-    setTimeout(() => {
-        showToast("Commande confirmée ! Merci Victory Athletics 🇸🇳");
-        cart = [];
-        updateCartUI();
-        closeCheckout();
-        switchPage('home');
-    }, 2000);
-}
-
+/* ===== TOAST ===== */
+let _tt;
 function showToast(msg) {
-    const t = document.createElement('div');
-    t.className = 'toast';
-    t.innerText = msg;
-    document.getElementById('toast-container').appendChild(t);
-    setTimeout(() => t.remove(), 3000);
+  clearTimeout(_tt);
+  document.getElementById('toast-msg').textContent = msg;
+  document.getElementById('toast').classList.add('show');
+  _tt = setTimeout(() => document.getElementById('toast').classList.remove('show'), 3000);
 }
 
-// Init au chargement
-updateCartUI();
+/* ===== NAVIGATION ===== */
+function nav(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  document.querySelectorAll('#nav-links a').forEach(a => a.classList.remove('act'));
+  const el = document.getElementById('nl-'+page);
+  if(el) el.classList.add('act');
+  if(page === 'catalogue') initCatalogue();
+  if(page === 'checkout') initCheckout();
+  if(page === 'home') {
+    const prods = getProducts();
+    document.getElementById('hero-stat-prods').textContent = prods.length + '+';
+    renderHomeRow();
+  }
+}
+
+/* ===== SEARCH ===== */
+function openSearch(){document.getElementById('search-ov').classList.add('open');document.getElementById('s-inp').focus();}
+function closeSearch(){document.getElementById('search-ov').classList.remove('open');}
+function setSearch(q){document.getElementById('s-inp').value=q;doSearch(q);}
+function doSearch(q) {
+  const el = document.getElementById('s-results');
+  if(!q){el.innerHTML='';return;}
+  const prods = getProducts().filter(p => p.name.toLowerCase().includes(q.toLowerCase())||p.category.toLowerCase().includes(q.toLowerCase()));
+  if(!prods.length){el.innerHTML='<p style="color:var(--muted);padding:1rem;font-size:.83rem">Aucun résultat pour "'+q+'"</p>';return;}
+  el.innerHTML = prods.slice(0,5).map(p=>`
+    <div class="s-res-item" onclick="closeSearch();openProduct(${p.id})">
+      <img class="s-res-img" src="${p.img}" alt="${p.name}"/>
+      <div><div class="s-res-name">${p.name}</div><div class="s-res-price">${p.price.toLocaleString('fr-FR')} FCFA</div></div>
+    </div>
+  `).join('');
+}
+document.addEventListener('keydown', e => {if(e.key==='Escape'){closeSearch();closeMob();}});
+
+/* ===== MOBILE MENU ===== */
+function openMob(){document.getElementById('mob-menu').classList.add('open');}
+function closeMob(){document.getElementById('mob-menu').classList.remove('open');}
+
+/* ===== CART ===== */
+let cart = [];
+function addToCart(id, size, qty=1) {
+  const prods = getProducts();
+  const product = prods.find(p => p.id === id);
+  if(!product) return;
+  const key = id+'-'+size;
+  const existing = cart.find(i => i.key === key);
+  if(existing){existing.qty+=qty;}
+  else{cart.push({key,id,name:product.name,price:product.price,img:product.img,category:product.category,size,qty});}
+  renderCart();
+  showToast('"'+product.name+'" ajouté au panier !');
+}
+function removeFromCart(key){cart=cart.filter(i=>i.key!==key);renderCart();}
+function chgCartQty(key,d){const i=cart.find(c=>c.key===key);if(i)i.qty=Math.max(1,i.qty+d);renderCart();}
+function renderCart(){
+  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('nav-cnt').textContent=count;
+  document.getElementById('cart-hd-cnt').textContent=count+' article'+(count>1?'s':'');
+  document.getElementById('cart-tot').textContent=total.toLocaleString('fr-FR')+' FCFA';
+  document.getElementById('cart-tot-btn').textContent=total.toLocaleString('fr-FR')+' FCFA';
+  const bd=document.getElementById('cart-bd');
+  if(!cart.length){bd.innerHTML='<div class="cart-empty"><div class="cart-empty-ico">🛒</div><div>Votre panier est vide</div></div>';return;}
+  bd.innerHTML=cart.map(item=>`
+    <div class="cart-item-row">
+      <img class="ci-img" src="${item.img}" alt="${item.name}"/>
+      <div class="ci-body">
+        <div class="ci-brand">VICTORY · ${item.category}</div>
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-meta">Taille : ${item.size}</div>
+        <div class="ci-row">
+          <div class="ci-qty">
+            <button class="ci-qb" onclick="chgCartQty('${item.key}',-1)">−</button>
+            <span class="ci-qv">${item.qty}</span>
+            <button class="ci-qb" onclick="chgCartQty('${item.key}',1)">+</button>
+          </div>
+          <div class="ci-price">${(item.price*item.qty).toLocaleString('fr-FR')} FCFA</div>
+        </div>
+      </div>
+      <button class="ci-del" onclick="removeFromCart('${item.key}')">✕</button>
+    </div>
+  `).join('');
+}
+function openCart(){document.getElementById('cart-dr').classList.add('open');document.getElementById('cart-ov').classList.add('open');}
+function closeCart(){document.getElementById('cart-dr').classList.remove('open');document.getElementById('cart-ov').classList.remove('open');}
+function goCheckout(){closeCart();nav('checkout');}
+
+/* ===== PRODUCT CARD ===== */
+function renderCard(p) {
+  const badgeMap = {new:'badge-new',sale:'badge-sale',limited:'badge-limited'};
+  const badgeLbl = {new:'Nouveau',sale:'Soldes',limited:'Limité'};
+  return `
+    <div class="pcard" onclick="openProduct(${p.id})">
+      <div class="pc-wrap">
+        <img src="${p.img}" alt="${p.name}" loading="lazy"/>
+        ${p.badge?`<div class="pc-badge ${badgeMap[p.badge]||''}">${badgeLbl[p.badge]||p.badge}</div>`:''}
+        <button class="pc-add" onclick="event.stopPropagation();quickAdd(${p.id})">+ Panier</button>
+      </div>
+      <div class="pc-info">
+        <div class="pc-cat">VICTORY · ${p.category}</div>
+        <div class="pc-name">${p.name}</div>
+        <div class="pc-prices">
+          <span class="pc-price">${p.price.toLocaleString('fr-FR')} FCFA</span>
+          ${p.oldPrice?`<span class="pc-old">${p.oldPrice.toLocaleString('fr-FR')} FCFA</span>`:''}
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function quickAdd(id) {
+  const prods = getProducts();
+  const p = prods.find(x=>x.id===id);
+  if(!p) return;
+  const sizes = p.sizes ? p.sizes.split(',').map(s=>s.trim()) : ['M'];
+  addToCart(id, sizes[0] || 'M');
+}
+
+/* ===== HOME ROW ===== */
+function renderHomeRow() {
+  const row = document.getElementById('home-row');
+  if(!row) return;
+  const prods = getProducts();
+  row.innerHTML = prods.length ? prods.map(renderCard).join('') : '<p style="color:var(--muted);padding:2rem;font-family:var(--fs);font-style:italic">Ajoutez des produits via le panel Admin ⚙</p>';
+}
+
+/* ===== CATALOGUE ===== */
+let catState = {cats:[], sizes:[], maxPrice:200000, sort:'default', view:'grid', shown:8};
+function initCatalogue() {
+  const prods = getProducts();
+  renderCatFilters(prods);
+  renderCatProducts();
+}
+function renderCatFilters(prods) {
+  const cats = [...new Set(prods.map(p=>p.category))];
+  document.getElementById('f-cats').innerHTML = cats.map(c=>`
+    <div class="fs-opt${catState.cats.includes(c)?' chk':''}" onclick="toggleCat('${c}')">
+      <div class="fs-chk"></div><span>${c}</span>
+    </div>`).join('');
+  const allSizes = ['XS','S','M','L','XL','XXL'];
+  document.getElementById('f-sizes').innerHTML = allSizes.map(s=>`
+    <div class="fs-opt${catState.sizes.includes(s)?' chk':''}" onclick="toggleSz('${s}')">
+      <div class="fs-chk"></div><span>${s}</span>
+    </div>`).join('');
+}
+function toggleCat(c){catState.cats.includes(c)?catState.cats=catState.cats.filter(x=>x!==c):catState.cats.push(c);initCatalogue();}
+function toggleSz(s){catState.sizes.includes(s)?catState.sizes=catState.sizes.filter(x=>x!==s):catState.sizes.push(s);initCatalogue();}
+function filterPrice(v){catState.maxPrice=parseInt(v);document.getElementById('price-lbl').textContent=parseInt(v).toLocaleString('fr-FR')+' FCFA';renderCatProducts();}
+function sortProds(v){catState.sort=v;renderCatProducts();}
+function resetFilters(){catState={cats:[],sizes:[],maxPrice:200000,sort:'default',view:catState.view,shown:8};document.getElementById('price-sl').value=200000;document.getElementById('price-lbl').textContent='200 000 FCFA';initCatalogue();}
+function setView(v,btn){catState.view=v;document.querySelectorAll('.vb').forEach(b=>b.classList.remove('act'));btn.classList.add('act');document.getElementById('cat-grid').className='prods-grid'+(v==='list'?' lv':'');renderCatProducts();}
+function loadMore(){catState.shown+=8;renderCatProducts();}
+function renderCatProducts(){
+  let prods = getProducts();
+  if(catState.cats.length) prods=prods.filter(p=>catState.cats.includes(p.category));
+  if(catState.sizes.length) prods=prods.filter(p=>(p.sizes||'').split(',').some(s=>catState.sizes.includes(s.trim())));
+  prods=prods.filter(p=>p.price<=catState.maxPrice);
+  if(catState.sort==='asc') prods.sort((a,b)=>a.price-b.price);
+  else if(catState.sort==='desc') prods.sort((a,b)=>b.price-a.price);
+  else if(catState.sort==='new') prods.sort((a,b)=>(b.badge==='new'?1:0)-(a.badge==='new'?1:0));
+  document.getElementById('cat-cnt').textContent=prods.length+' produit'+(prods.length>1?'s':'');
+  const grid = document.getElementById('cat-grid');
+  const nop = document.getElementById('no-prods');
+  if(!prods.length){grid.innerHTML='';nop.style.display='block';return;}
+  nop.style.display='none';
+  grid.innerHTML = prods.slice(0,catState.shown).map(renderCard).join('');
+  // active filters
+  const tags=[];
+  catState.cats.forEach(c=>tags.push({l:c,rm:()=>toggleCat(c)}));
+  catState.sizes.forEach(s=>tags.push({l:'T:'+s,rm:()=>toggleSz(s)}));
+  if(catState.maxPrice<200000) tags.push({l:'Max:'+catState.maxPrice.toLocaleString('fr-FR'),rm:()=>{catState.maxPrice=200000;document.getElementById('price-sl').value=200000;document.getElementById('price-lbl').textContent='200 000 FCFA';renderCatProducts();}});
+  window._filterTags=tags;
+  document.getElementById('act-filt').innerHTML=tags.map((t,i)=>`<div class="af-tag">${t.l}<button class="af-rm" onclick="_filterTags[${i}].rm()">✕</button></div>`).join('');
+}
+
+/* ===== PRODUCT DETAIL ===== */
+let curProd=null, pdSize='', pdQty=1;
+function openProduct(id) {
+  const prods = getProducts();
+  const p = prods.find(x=>x.id===id);
+  if(!p) return;
+  curProd=p; pdSize=''; pdQty=1;
+  nav('product');
+  document.getElementById('pd-bc-name').textContent=p.name;
+  document.getElementById('pd-name').textContent=p.name;
+  document.getElementById('pd-tagline').textContent='Collection '+p.category+' · Victory Athletics';
+  document.getElementById('pd-price').textContent=p.price.toLocaleString('fr-FR')+' FCFA';
+  document.getElementById('pd-old').textContent=p.oldPrice?(p.oldPrice.toLocaleString('fr-FR')+' FCFA'):'';
+  const sv=document.getElementById('pd-save');
+  if(p.oldPrice){sv.style.display='inline';sv.textContent='−'+Math.round((1-p.price/p.oldPrice)*100)+'%';}
+  else sv.style.display='none';
+  document.getElementById('pd-img').src=p.img;
+  document.getElementById('pd-thumbs').innerHTML=`<div class="pd-thumb act"><img src="${p.img}"/></div>`;
+  const colors=(p.colors||'#1a1a1a').split(',').map(c=>c.trim());
+  document.getElementById('pd-colors').innerHTML=colors.map((c,i)=>`<div class="color-o${i===0?' sel':''}" style="background:${c};outline:1px solid rgba(255,255,255,.15)" onclick="selColor('${c}',this)"></div>`).join('');
+  document.getElementById('pd-color-lbl').textContent=colors[0]||'Noir';
+  const sizes=(p.sizes||'M').split(',').map(s=>s.trim());
+  document.getElementById('pd-sizes').innerHTML=sizes.map(s=>`<button class="sz-btn" onclick="selSz('${s}',this)">${s}</button>`).join('');
+  document.getElementById('pd-qty').textContent=1;
+  document.getElementById('pd-size-lbl').textContent='Choisir';
+  document.getElementById('tab-desc-txt').textContent=p.desc||'Produit haut de gamme Victory Athletics.';
+  document.querySelectorAll('.tab-c').forEach(t=>t.classList.remove('act'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('act'));
+  document.getElementById('tab-desc').classList.add('act');
+  document.querySelector('.tb').classList.add('act');
+}
+function selColor(c,el){document.querySelectorAll('.color-o').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');document.getElementById('pd-color-lbl').textContent=c;}
+function selSz(s,el){pdSize=s;document.querySelectorAll('.sz-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');document.getElementById('pd-size-lbl').textContent=s;}
+function chgQty(d){pdQty=Math.max(1,Math.min(10,pdQty+d));document.getElementById('pd-qty').textContent=pdQty;}
+function addCurrent(){
+  if(!pdSize){showToast('⚠️ Veuillez choisir une taille !');return;}
+  if(!curProd) return;
+  addToCart(curProd.id, pdSize, pdQty);
+}
+function showTab(id,btn){
+  document.querySelectorAll('.tab-c').forEach(t=>t.classList.remove('act'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('act'));
+  document.getElementById('tab-'+id).classList.add('act');
+  btn.classList.add('act');
+}
+
+/* ===== CHECKOUT ===== */
+function initCheckout(){
+  const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const f=v=>v.toLocaleString('fr-FR')+' FCFA';
+  document.getElementById('co-items').innerHTML=cart.length?cart.map(i=>`
+    <div class="co-item">
+      <img class="co-item-img" src="${i.img}" alt="${i.name}"/>
+      <div><div class="co-item-name">${i.name}</div><div class="co-item-meta">T: ${i.size} · Qté: ${i.qty}</div></div>
+      <div class="co-item-price">${(i.price*i.qty).toLocaleString('fr-FR')} FCFA</div>
+    </div>`).join(''):'<p style="color:var(--muted);font-size:.82rem">Panier vide.</p>';
+  document.getElementById('co-sub').textContent=f(total);
+  document.getElementById('co-tot').textContent=f(total);
+}
+function selPay(el){document.querySelectorAll('.pay-m').forEach(m=>m.classList.remove('sel'));el.classList.add('sel');}
+function placeOrder(){cart=[];renderCart();showToast('🎉 Commande confirmée ! Merci !');setTimeout(()=>nav('home'),2000);}
+
+/* ===== MEMBERS ===== */
+function switchAuth(t,btn){document.querySelectorAll('.at').forEach(a=>a.classList.remove('act'));document.querySelectorAll('.af').forEach(f=>f.classList.remove('act'));btn.classList.add('act');document.getElementById('af-'+t).classList.add('act');}
+
+/* ===== NEWSLETTER ===== */
+function handleNL(e){e.preventDefault();showToast('Bienvenue dans la famille Victory ! 🇸🇳');e.target.reset();}
+
+/* ===== ADMIN PANEL ===== */
+let editId = null;
+let selectedBadge = '';
+
+function openAdmin(){
+  document.getElementById('admin-ov').classList.add('open');
+  renderAdmDashboard();
+  renderAdmTable();
+}
+function closeAdmin(){document.getElementById('admin-ov').classList.remove('open');}
+
+function switchAdmTab(tab, btn){
+  document.querySelectorAll('.adm-tab').forEach(t=>t.classList.remove('act'));
+  document.querySelectorAll('.adm-panel').forEach(p=>p.classList.remove('act'));
+  btn.classList.add('act');
+  document.getElementById('adm-'+tab).classList.add('act');
+  if(tab==='products') renderAdmTable();
+  if(tab==='dashboard') renderAdmDashboard();
+}
+
+function renderAdmDashboard(){
+  const prods = getProducts();
+  const total_val = prods.reduce((s,p)=>s+p.price,0);
+  const new_count = prods.filter(p=>p.badge==='new').length;
+  document.getElementById('adm-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-card-ico">📦</div><div class="stat-card-val">${prods.length}</div><div class="stat-card-lbl">Produits total</div></div>
+    <div class="stat-card"><div class="stat-card-ico">🆕</div><div class="stat-card-val">${new_count}</div><div class="stat-card-lbl">Nouveautés</div></div>
+    <div class="stat-card"><div class="stat-card-ico">💰</div><div class="stat-card-val">${Math.round(total_val/1000)}K</div><div class="stat-card-lbl">Valeur stock (FCFA)</div></div>
+  `;
+}
+
+function renderAdmTable(){
+  const prods = getProducts();
+  const tbody = document.getElementById('adm-tbody');
+  const nop = document.getElementById('adm-no-prods');
+  document.getElementById('adm-prod-count').textContent = prods.length;
+  if(!prods.length){tbody.innerHTML='';nop.style.display='block';return;}
+  nop.style.display='none';
+  const badgeLbl={new:'Nouveau',sale:'Soldes',limited:'Limité'};
+  const badgeCls={new:'badge-new',sale:'badge-sale',limited:'badge-limited'};
+  tbody.innerHTML = prods.map(p=>`
+    <tr>
+      <td><img class="pt-img" src="${p.img}" alt="${p.name}"/></td>
+      <td><div class="pt-name">${p.name}</div></td>
+      <td><span style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em">${p.category}</span></td>
+      <td><div class="pt-price">${p.price.toLocaleString('fr-FR')} FCFA</div></td>
+      <td>${p.badge?`<span class="pt-badge pc-badge ${badgeCls[p.badge]||''}">${badgeLbl[p.badge]||p.badge}</span>`:'-'}</td>
+      <td><span style="font-size:.75rem;color:var(--g)">✓ En stock</span></td>
+      <td><div class="tbl-actions"><button class="tbl-btn edit" onclick="editProduct(${p.id})">Modifier</button><button class="tbl-btn del" onclick="confirmDelete(${p.id},'${p.name.replace(/'/g,"\\'")}')">Supprimer</button></div></td>
+    </tr>
+  `).join('');
+}
+
+function saveProduct(e){
+  e.preventDefault();
+  const name=document.getElementById('fp-name').value.trim();
+  const category=document.getElementById('fp-cat').value;
+  const price=parseInt(document.getElementById('fp-price').value)||0;
+  const oldPrice=parseInt(document.getElementById('fp-old-price').value)||null;
+  const img=document.getElementById('fp-img').value.trim();
+  const sizes=document.getElementById('fp-sizes').value.trim()||'S,M,L,XL';
+  const colors=document.getElementById('fp-colors').value.trim()||'#1a1a1a';
+  const badge=document.getElementById('fp-badge').value;
+  const desc=document.getElementById('fp-desc').value.trim();
+  const data={name,category,price,oldPrice:oldPrice||null,img,sizes,colors,badge,desc};
+  if(editId!==null){
+    updateProduct(editId, data);
+    showToast('✏️ Produit "'+name+'" modifié avec succès !');
+    editId=null;
+    document.getElementById('btn-save-lbl').textContent='💾 Enregistrer le Produit';
+  } else {
+    addProduct(data);
+    showToast('✅ Produit "'+name+'" ajouté à la base de données !');
+  }
+  resetForm();
+  renderAdmTable();
+  renderAdmDashboard();
+  renderHomeRow();
+  if(document.getElementById('page-catalogue').classList.contains('active')) renderCatProducts();
+  // update hero stat
+  document.getElementById('hero-stat-prods').textContent = getProducts().length + '+';
+}
+
+function editProduct(id){
+  const p = getProducts().find(x=>x.id===id);
+  if(!p) return;
+  editId=id;
+  switchAdmTab('add', document.querySelectorAll('.adm-tab')[1]);
+  document.getElementById('edit-id').value=id;
+  document.getElementById('fp-name').value=p.name;
+  document.getElementById('fp-cat').value=p.category;
+  document.getElementById('fp-price').value=p.price;
+  document.getElementById('fp-old-price').value=p.oldPrice||'';
+  document.getElementById('fp-img').value=p.img;
+  document.getElementById('fp-sizes').value=p.sizes||'';
+  document.getElementById('fp-colors').value=p.colors||'';
+  document.getElementById('fp-desc').value=p.desc||'';
+  document.getElementById('fp-badge').value=p.badge||'';
+  previewImg(p.img);
+  selectBadge(p.badge||'', document.querySelector(`.badge-opt${!p.badge?':first-child':'[onclick*="'+p.badge+'"]'}`) || document.querySelector('.badge-opt'));
+  document.getElementById('btn-save-lbl').textContent='✏️ Mettre à jour le Produit';
+  showToast('Mode édition : "'+p.name+'"');
+}
+
+function confirmDelete(id, name){
+  if(confirm('Supprimer "'+name+'" de la base de données ?')){
+    deleteProduct(id);
+    renderAdmTable();
+    renderAdmDashboard();
+    renderHomeRow();
+    if(document.getElementById('page-catalogue').classList.contains('active')) renderCatProducts();
+    document.getElementById('hero-stat-prods').textContent = getProducts().length + '+';
+    showToast('🗑️ Produit "'+name+'" supprimé.');
+  }
+}
+
+function resetForm(){
+  editId=null;
+  document.getElementById('prod-form').reset();
+  document.getElementById('fp-badge').value='';
+  document.getElementById('img-preview-img').style.display='none';
+  document.getElementById('img-preview-img').src='';
+  document.querySelectorAll('.badge-opt').forEach(b=>{b.className='badge-opt';});
+  document.querySelector('.badge-opt').className='badge-opt sel-none';
+  document.getElementById('btn-save-lbl').textContent='💾 Enregistrer le Produit';
+}
+
+function previewImg(url){
+  const img=document.getElementById('img-preview-img');
+  const ph=document.querySelector('.img-preview-ph');
+  if(url){
+    img.src=url;
+    img.style.display='block';
+    if(ph) ph.style.display='none';
+    img.onerror=()=>{img.style.display='none';if(ph)ph.style.display='block';};
+  } else {
+    img.style.display='none';
+    if(ph) ph.style.display='block';
+  }
+}
+
+function selectBadge(val, el){
+  document.getElementById('fp-badge').value=val;
+  document.querySelectorAll('.badge-opt').forEach(b=>{b.className='badge-opt';});
+  if(el){
+    if(!val) el.className='badge-opt sel-none';
+    else el.className=`badge-opt sel-${val}`;
+  }
+}
+
+function exportDB(){
+  const prods=getProducts();
+  const blob=new Blob([JSON.stringify(prods,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='victory-products.json';
+  a.click();
+  showToast('📥 Base de données exportée en JSON !');
+}
+
+/* ===== SCROLL REVEAL ===== */
+const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.1});
+function observeAll(){document.querySelectorAll('.rv:not(.in)').forEach(el=>ro.observe(el));}
+observeAll();
+new MutationObserver(()=>observeAll()).observe(document.body,{childList:true,subtree:true});
+
+/* ===== INIT ===== */
+(function init(){
+  const prods=getProducts();
+  document.getElementById('hero-stat-prods').textContent=prods.length+'+';
+  renderHomeRow();
+})();
 </script>
 </body>
 </html>
